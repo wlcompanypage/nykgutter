@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,144 +5,716 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - N&K Gutter</title>
     <link rel="icon" href="icono.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script type="module">
-    import gsap from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-    import ScrollTrigger from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-    import ScrollToPlugin from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js';
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF7A00;
+            --secondary: #0A2E5C;
+            --accent: #FFC107;
+            --dark: #0f172a;
+        }
 
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    import 'script.js';
-</script>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s;
+        }
+
+        .header.scrolled {
+            background: rgba(15,23,42,0.95);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { 
+            height: 60px; 
+            transition: all 0.5s;
+            filter: drop-shadow(0 0 20px rgba(255,122,0,0.5));
+        }
+        
+        .logo:hover { 
+            transform: rotateY(360deg) scale(1.1);
+            filter: drop-shadow(0 0 30px var(--primary));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: translateX(-50%);
+            transition: width 0.4s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::before { width: 100%; }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255,122,0,0.4);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,122,0,0.6);
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)), url('trabajo1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,122,0,0.2), transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255,193,7,0.15), transparent 50%);
+            animation: pulse 8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background: rgba(10,46,92,0.3);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, white 0%, var(--primary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.8;
+            animation: fadeIn 1s ease 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .story-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #1e293b, #0f172a);
+            position: relative;
+        }
+
+        .story-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-text h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, white, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .story-text p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-text strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .story-image {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            transition: all 0.6s;
+        }
+
+        .story-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,122,0,0.2), rgba(255,193,7,0.2));
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 1;
+        }
+
+        .story-image:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 40px 100px rgba(255,122,0,0.4);
+        }
+
+        .story-image:hover::before {
+            opacity: 1;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .story-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .values-section {
+            padding: 6rem 2rem;
+            background: #0f172a;
+            position: relative;
+        }
+
+        .values-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 50%, rgba(255,122,0,0.05), transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(255,193,7,0.05), transparent 50%);
+        }
+
+        .values-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .values-header h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, white, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .values-header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .values-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .value-card {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent 0deg,
+                var(--primary) 90deg,
+                transparent 180deg
+            );
+            opacity: 0;
+            transition: all 0.6s;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .value-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .value-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            border-color: var(--primary);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(255,122,0,0.3);
+        }
+
+        .value-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 15px 40px rgba(255,122,0,0.4);
+            transition: all 0.5s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .value-card:hover .value-icon {
+            transform: rotateY(360deg) scale(1.15);
+            box-shadow: 0 20px 60px rgba(255,122,0,0.6);
+        }
+
+        .value-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .value-card p {
+            color: rgba(255,255,255,0.75);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #1e293b, #0f172a);
+        }
+
+        .gallery-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+        }
+
+        .gallery-header h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, white, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            cursor: pointer;
+            transition: all 0.6s;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 30px 80px rgba(255,122,0,0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.15) rotate(2deg);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,122,0,0.9), rgba(255,193,7,0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 2rem;
+            transform: scale(0);
+            transition: transform 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: scale(1);
+        }
+
+        .cta-section {
+            padding: 6rem 2rem;
+            background: #0f172a;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255,122,0,0.1), transparent 70%);
+        }
+
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.4s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 15px 35px rgba(255,122,0,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255,122,0,0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .story-container { grid-template-columns: 1fr; }
+            .hero { padding: 6rem 1.5rem 3rem; }
+            .hero-content { padding: 2rem; }
+            .values-grid, .gallery-grid { grid-template-columns: 1fr; }
+            .btn-group { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo-link"><img src="icono.jpg" alt="NK & Gutter Logo" class="logo"></a>
-            <div class="nav-links">
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <a href="" class="phone-button cta-button-nav">Call Now: (561) 268-6290</a>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html"><img src="icono.jpg" alt="N&K Gutter" class="logo"></a>
+            <ul class="nav-links">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="tel:+15612686290" class="cta-btn">Call: (561) 268-6290</a>
         </nav>
     </header>
 
-    <main class="page-main-content">
-        <section id="about-hero" class="text-focused-section about-hero-bg">
-            <div class="about-hero-overlay">
-                <h1>About N&K Gutter</h1>
-                <p class="hero-subtext" style="color: var(--white); max-width: 700px; margin-left:auto; margin-right:auto;">Your Trusted Partner for Premium Gutter Solutions. Protecting Homes & Businesses with Excellence for Over 10 Years.</p>
-            </div>
-        </section>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>About N&K Gutter</h1>
+            <p>Your Trusted Partner for Premium Gutter Solutions. Protecting Homes & Businesses with Excellence for Over 10 Years.</p>
+        </div>
+    </section>
 
-        <section id="about-story" class="content-section">
-            <div class="container about-story-container">
-                <div class="about-story-text">
-                    <h2>Our Story: A Family Commitment to Quality</h2>
-                    <p>N&K Gutter is more than just a gutter company; we are a <strong>family-owned and operated business</strong> built on a foundation of trust, integrity, and an unwavering commitment to our customers. With over <strong>10 years of dedicated service</strong> in the community, we've grown by treating every home and business as if it were our own, ensuring your property is protected by the best gutter solutions available.</p>
-                    <p>We believe in providing not just superior gutter systems, but also peace of mind. That's why we are <strong>fully licensed and insured</strong>, committed to transparent communication from the initial consultation to project completion, and offer fair, competitive pricing. Our goal is to deliver outstanding customer service and lasting results that you can rely on.</p>
-                </div>
-                <div class="about-story-image">
-                    <img src="icono.jpg" alt="NK & Gutter - Family Gutters Banner demonstrating commitment to excellence" class="img-fluid rounded-shadow">
-                </div>
+    <section class="story-section">
+        <div class="story-container">
+            <div class="story-text">
+                <h2>Our Story: A Family Commitment to Quality</h2>
+                <p>N&K Gutter is more than just a gutter company; we are a <strong>family-owned and operated business</strong> built on a foundation of trust, integrity, and an unwavering commitment to our customers. With over <strong>10 years of dedicated service</strong> in the community, we've grown by treating every home and business as if it were our own, ensuring your property is protected by the best gutter solutions available.</p>
+                <p>We believe in providing not just superior gutter systems, but also peace of mind. That's why we are <strong>fully licensed and insured</strong>, committed to transparent communication from the initial consultation to project completion, and offer fair, competitive pricing. Our goal is to deliver outstanding customer service and lasting results that you can rely on.</p>
             </div>
-        </section>
-
-        <section id="our-values" class="content-section alt-bg">
-            <div class="container">
-                <h2 class="text-center">What We Stand For: The N&K Gutter Promise</h2>
-                <p class="section-subtext">At N&K Gutter, our commitment goes beyond installation. Our core values shape every project, ensuring exceptional workmanship, reliable service, and complete customer satisfaction from start to finish.</p>
-                <p class="section-subtext">Our Promise Includes:</p>
-                <div class="values-grid">
-                    <div class="value-card">
-                        <img src="icon_quality_excellence.png" alt="Uncompromising quality icon" class="modern-icon">
-                        <h3>Uncompromising Quality</h3>
-                        <p>We use only premium-grade materials and cutting-edge techniques to ensure your gutter system is durable, efficient, and aesthetically enhances your property. Our installations are meticulously crafted to last.</p>
-                    </div>
-                    <div class="value-card">
-                        <img src="icon_customer_service.png" alt="Customer-centric service icon" class="modern-icon">
-                        <h3>Customer-Centric Service</h3>
-                        <p>Your satisfaction is our ultimate goal. We pride ourselves on providing outstanding customer service, maintaining clear and consistent communication, and tailoring personalized solutions to meet your specific needs and budget.</p>
-                    </div>
-                    <div class="value-card">
-                        <img src="icon_craftsmanship_tools.png" alt="Expert craftsmanship and compliance icon" class="modern-icon">
-                        <h3>Expert Craftsmanship & Compliance</h3>
-                        <p>From simple fixes to full-system installs, every project benefits from the precision and care of our experienced team. We apply meticulous attention to detail and uphold the highest standards by following all local regulations and industry best practices—ensuring flawless execution and long-lasting results.</p>
-                    </div>
-                    <div class="value-card">
-                        <img src="icon_shield_protection.png" alt="Integrity and reliability icon" class="modern-icon">
-                        <h3>Integrity & Reliability</h3>
-                        <p>We take pride in doing business the right way. As a fully licensed and insured company, we stand behind every project with confidence. From free, no-obligation estimates to clear and straightforward communication, we provide the clarity and support you need to move forward with confidence.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="about-visuals" class="content-section">
-            <div class="container">
-                <h2 class="text-center">Our Work in Action</h2>
-                <p class="section-subtext">We take immense pride in enhancing and protecting properties throughout our community. Here’s a glimpse of the quality, precision, and care we bring to every project, ensuring compliance and beauty.</p>
-                <div class="gallery-grid about-gallery">
-                    <div class="gallery-item">
-                        <img src="trabajo3.jpg" alt="Examples of Florida Gutter Installations by NK & Gutter" class="img-fluid">
-                        <div class="gallery-item-caption">Florida-Compliant Installations</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="trabajo7.jpg" alt="Copper Gutter System installed by NK & Gutter" class="img-fluid">
-                        <div class="gallery-item-caption">Premium Copper Gutter Systems</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="trabajo5.jpg" alt="Modern Home Gutter Installation by NK & Gutter" class="img-fluid">
-                        <div class="gallery-item-caption">Clean & Modern Aesthetics</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about-cta" class="content-section cta-focused-section alt-bg">
-            <div class="container text-center">
-                <h2>Ready to Experience the N&K Gutter Difference?</h2>
-                <p class="section-subtext" style="color: var(--text-light);">Ready to Experience the N&K Gutter Difference?
-Protect your home with a team that truly cares. At N&K Gutter, we’re committed to delivering top-quality gutter solutions and the outstanding service you deserve—every step of the way.
-
-Built to last. Backed by care!</p>
-                <div class="cta-button-group">
-                    <a href="index.html#quoteFormSection" class="cta-button large-button">Get Your FREE Estimate Today</a>
-                    <a href="" class="cta-button secondary large-button">Call Us: (561) 268-6290</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section footer-logo-area">
-                <a href="index.html"><img src="icono.jpg" alt="NK & Gutter Logo" class="footer-logo"></a>
-                <p>N&K Gutter</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p>Phone: <a href="">(561) 268-6290</a></p>
-                <p>Email: <a href="mailto:nykseamlessgutter@gmail.com">nykseamlessgutter@gmail.com</a></p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+            <div class="story-image">
+                <img src="icono.jpg" alt="N&K Gutter Family Business">
             </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 N&K seamless gutter LLC</p>
-        </div>
-    </footer>
+    </section>
 
-    
+    <section class="values-section">
+        <div class="values-header">
+            <h2>What We Stand For: The N&K Gutter Promise</h2>
+            <p>At N&K Gutter, our commitment goes beyond installation. Our core values shape every project, ensuring exceptional workmanship, reliable service, and complete customer satisfaction from start to finish.</p>
+            <p><strong>Our Promise Includes:</strong></p>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">💎</div>
+                <h3>Uncompromising Quality</h3>
+                <p>We use only premium-grade materials and cutting-edge techniques to ensure your gutter system is durable, efficient, and aesthetically enhances your property. Our installations are meticulously crafted to last.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3>Customer-Centric Service</h3>
+                <p>Your satisfaction is our ultimate goal. We pride ourselves on providing outstanding customer service, maintaining clear and consistent communication, and tailoring personalized solutions to meet your specific needs and budget.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">⚡</div>
+                <h3>Expert Craftsmanship & Compliance</h3>
+                <p>From simple fixes to full-system installs, every project benefits from the precision and care of our experienced team. We apply meticulous attention to detail and uphold the highest standards by following all local regulations and industry best practices.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🛡️</div>
+                <h3>Integrity & Reliability</h3>
+                <p>We take pride in doing business the right way. As a fully licensed and insured company, we stand behind every project with confidence. From free, no-obligation estimates to clear and straightforward communication, we provide the clarity and support you need.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <div class="gallery-header">
+            <h2>Our Work in Action</h2>
+            <p>We take immense pride in enhancing and protecting properties throughout our community. Here's a glimpse of the quality, precision, and care we bring to every project.</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="trab6.jpg" alt="Florida Gutter Installation">
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Florida-Compliant Installations</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="trab5.jpg" alt="Copper Gutter System">
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Premium Copper Gutter Systems</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="trab7.jpg" alt="Modern Home Installation">
+                <div class="gallery-overlay">
+                    <div class="gallery-caption">Clean & Modern Aesthetics</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Experience the N&K Gutter Difference?</h2>
+            <p>Protect your home with a team that truly cares. At N&K Gutter, we're committed to delivering top-quality gutter solutions and the outstanding service you deserve—every step of the way. Built to last. Backed by care!</p>
+            <div class="btn-group">
+                <a href="index.html#quoteFormSection" class="btn btn-primary">Get Your FREE Estimate Today</a>
+                <a href="tel:+15612686290" class="btn btn-secondary">Call Us: (561) 268-6290</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.backgroundPositionY = `${scrolled * 0.5}px`;
+            }
+        });
+
+        // 3D tilt on value cards
+        document.querySelectorAll('.value-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 15;
+                const rotateY = (centerX - x) / 15;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-20px) scale(1.03)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    </script>
 </body>
 </html>

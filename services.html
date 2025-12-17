@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,210 +5,618 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services - N&K Gutter</title>
     <link rel="icon" href="icono.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script type="module">
-    import gsap from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-    import ScrollTrigger from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-    import ScrollToPlugin from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js';
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF7A00;
+            --secondary: #0A2E5C;
+            --accent: #FFC107;
+            --dark: #0f172a;
+        }
 
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    import 'script.js';
-</script>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s;
+        }
+
+        .header.scrolled {
+            background: rgba(15,23,42,0.95);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { height: 60px; transition: all 0.5s; }
+        .logo:hover { transform: rotateY(360deg) scale(1.1); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: translateX(-50%);
+            transition: width 0.4s;
+        }
+
+        .nav-links a:hover::before { width: 100%; }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255,122,0,0.4);
+            transition: all 0.4s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,122,0,0.6);
+        }
+
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,122,0,0.2), transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation: pulse 8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, white, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .services-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #1e293b, #0f172a);
+        }
+
+        .intro {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .intro h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, white, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .card:hover {
+            transform: translateY(-20px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(255,122,0,0.3);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.15) rotate(2deg);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,122,0,0.8), rgba(255,193,7,0.8));
+            opacity: 0;
+            transition: opacity 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .card:hover .overlay { opacity: 0.9; }
+
+        .content {
+            padding: 2.5rem;
+        }
+
+        .content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .content h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.4s;
+        }
+
+        .card:hover .content h3::after { width: 120px; }
+
+        .content p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content li {
+            color: rgba(255,255,255,0.8);
+            padding: 0.8rem 0 0.8rem 2rem;
+            position: relative;
+        }
+
+        .content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.4s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 15px 35px rgba(255,122,0,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255,122,0,0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .grid { grid-template-columns: 1fr; }
+            .hero { padding: 6rem 1.5rem 3rem; }
+            .btn-group { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo-link"><img src="icono.jpg" alt="NK & Gutter Logo" class="logo"></a>
-            <div class="nav-links">
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <a href="" class="phone-button cta-button-nav">Call Now: (561) 268-6290</a>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html"><img src="icono.jpg" alt="N&K Gutter" class="logo"></a>
+            <ul class="nav-links">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="tel:+15612686290" class="cta-btn">Call: (561) 268-6290</a>
         </nav>
     </header>
 
-    <main class="page-main-content">
-        <section id="services-content">
-            <h2>Services </h2>
-            <p class="section-subtext">At N&K Seamless Gutter, we provide complete, customized solutions designed to protect your home or business with maximum efficiency and style.</p>
-            
-            <div class="services-intro">
-                <p>We specialize in high-quality gutter systems that are built to last—offering expert installation, repair, and maintenance services. Backed by skilled professionals and a commitment to excellence, we help safeguard your property from water damage while enhancing its appearance.</p>
-            </div>
-    
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-card-image-container">
-                        <img src="trabajo5.jpg" alt="Seamless Gutter Installation" class="service-card-image">
-                    </div>
-                    <h3>Professional Seamless Gutter Installation</h3>
-                    <div class="service-description">
-                        <p>We custom-fabricate seamless gutters on-site for a precise fit that reduces leaks and increases durability.</p>
-                        <p>Our gutters offer long-lasting protection with a sleek, clean look that adds value to your home or business.</p>
-                        <p>Choose from a range of colors and materials to match your property’s style.</p>
-                    </div>
-                    <h4>Key Benefits:</h4>
-                    <ul class="service-benefits">
-                        <li>Fewer leaks</li>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Premium Gutter Services</h1>
+            <p>Complete customized solutions to protect your property with maximum efficiency and style</p>
+        </div>
+    </section>
+
+    <section class="services-section">
+        <div class="intro">
+            <h2>Our Complete Service Solutions</h2>
+            <p>Expert installation, repair, and maintenance backed by skilled professionals</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-img">
+                    <img src="trabajo5.jpg" alt="Installation">
+                    <div class="overlay">🏗️</div>
+                </div>
+                <div class="content">
+                    <h3>Seamless Gutter Installation</h3>
+                    <p>Custom-fabricated on-site for precise fit and lasting protection</p>
+                    <ul>
+                        <li>Fewer leaks with seamless design</li>
                         <li>Greater durability</li>
-                        <li>Clean, modern appearance</li>
-                        <li>Fully customizable</li>
+                        <li>Clean modern appearance</li>
+                        <li>Fully customizable</li>
                     </ul>
                 </div>
-                <div class="service-card">
-                    <span class="service-icon"> 
-                         <img src="trabajo2.jpg" alt="Commercial Gutter Solutions" class="service-card-image">
-                    </span>
-                    <div class="service-card-image-container">
-                         <img src="trabajo2.jpg" alt="Commercial Gutter Solutions" class="service-card-image">
-                    </div>
-                    <h3>Gutter Solutions for Commercial Projects</h3>
-                    <div class="service-description">
-                        <p>Our high-capacity gutter systems are built for the demands of commercial buildings, warehouses, and other large structures. We deliver durable protection against water buildup.</p>
-                        <p></p>
-                    </div>
-                    <h4>Key Benefits:</h4>
-                    <ul class="service-benefits">
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="trab2.jpg" alt="Commercial">
+                    <div class="overlay">🏢</div>
+                </div>
+                <div class="content">
+                    <h3>Commercial Solutions</h3>
+                    <p>High-capacity systems for large buildings and warehouses</p>
+                    <ul>
                         <li>High-capacity drainage</li>
-                        <li>Built for large-scale durability</li>
-                        <li>Protects your long-term investment</li>
+                        <li>Built for durability</li>
+                        <li>Protects your investment</li>
+                        <li>Commercial-grade materials</li>
                     </ul>
                 </div>
-                <div class="service-card">
-                    <img src="icon_leaf_protection.png" alt="Leaf protection system icon" class="modern-icon">
-                    <h3>Gutter Leaf Protection Systems</h3>
-                    <div class="service-description">
-                        <p>Keep your gutters clear year-round with our effective leaf guard systems. They prevent clogs, maintain steady water flow, and reduce the need for frequent cleaning.</p>
-                        <p>These systems prevent blockages, ensure constant water flow, reduce the need for frequent cleaning, and prevent pest proliferation.</p>
-                    </div>
-                    <h4>Key Benefits:</h4>
-                    <ul class="service-benefits">
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="trab4.jpg" alt="Protection">
+                    <div class="overlay">🍃</div>
+                </div>
+                <div class="content">
+                    <h3>Leaf Protection Systems</h3>
+                    <p>Keep gutters clear year-round with effective guards</p>
+                    <ul>
                         <li>Prevents blockages</li>
                         <li>Reduces maintenance</li>
-                        <li>Extends gutter lifespan</li>
+                        <li>Extends lifespan</li>
+                        <li>Prevents pest issues</li>
                     </ul>
                 </div>
-                <div class="service-card">
-                    <img src="icon_gutter_cleaning.png" alt="Gutter cleaning icon" class="modern-icon">
-                    <h3>Professional Gutter Cleaning</h3>
-                    <div class="service-description">
-                        <p>Clogged gutters can cause serious damage. We remove leaves, dirt, and debris to keep water flowing properly and protect your home.</p>
-                        <p>Regular cleaning prevents overflows, water damage to foundations and roofs, and mold growth.</p>
-                    </div>
-                    <h4>Key Benefits:</h4>
-                    <ul class="service-benefits">
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="trabajo7.jpg" alt="Cleaning">
+                    <div class="overlay">✨</div>
+                </div>
+                <div class="content">
+                    <h3>Professional Cleaning</h3>
+                    <p>Remove debris and maintain proper water flow</p>
+                    <ul>
                         <li>Prevents water damage</li>
-                        <li>Maintains system performance</li>
-                        <li>Helps avoid costly repairs</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <img src="icon_underground_drainage.png" alt="Underground drainage icon" class="modern-icon">
-                    <h3>Underground Drainage Solutions</h3>
-                    <div class="service-description">
-                        <p>Protect your property from water damage with our efficient, low-profile underground drainage systems. We redirect water from your downspouts safely away from your foundation—helping to prevent soil erosion, basement flooding, and structural damage.</p>
-                        <p>Our systems are designed to work seamlessly with your landscaping for a clean, unobtrusive finish.</p>
-                    </div>
-                    <h4>Key Benefits:</h4>
-                    <ul class="service-benefits">
-                        <li>Foundation Protection – Prevents water from pooling near your home’s base.</li>
-                        <li>Prevents Erosion – Keeps your soil stable and your landscaping intact.</li>
-                        <li>Aesthetic Solution – Fully hidden systems maintain your property’s clean, finished look.</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <img src="icon_craftsmanship_tools.png" alt="Gutter repair icon" class="modern-icon">
-                    <h3>Expert Gutter Repair</h3>
-                    <div class="service-description">
-                        <p>Leaking, sagging, or damaged gutters? Our skilled team quickly diagnoses the issue and delivers reliable repairs to restore your gutter system’s full function.</p>
-                        <p>We handle everything from small fixes to full section replacements—always using high-quality materials to ensure long-lasting performance.</p>
-                    </div>
-                    <h4> Key Benefits of Our Repair Service</h4>
-                    <ul class="service-benefits">
-                        <li>Quick Problem Solving – Fast response and efficient repairs to minimize water damage and downtime.</li>
-                        <li>Damage Prevention – Stop minor issues from becoming major, costly problems.</li>
-                        <li>Extended Gutter Lifespan – Keep your system functioning longer with expert repairs and durable materials.</li>
+                        <li>Maintains performance</li>
+                        <li>Avoids costly repairs</li>
+                        <li>Professional equipment</li>
                     </ul>
                 </div>
             </div>
-    
-            <div class="services-value-prop">
-                <h2>Commitment to Quality and Your Satisfaction</h2>
-                <div class="benefits-grid">
-                     <div class="benefit-card">
-                        <img src="icon_quality_excellence.png" alt="Seamless gutter specialist icon" class="modern-icon">
-                        <h3>Seamless Gutter Specialists</h3>
-                        <p>Perfect fit and superior aesthetics.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <img src="icon_quality_excellence.png" alt="Premium quality materials icon" class="modern-icon">
-                        <h3>Premium Quality Materials</h3>
-                        <p>We guarantee durability and performance.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <img src="icon_craftsmanship_tools.png" alt="Professional team icon" class="modern-icon">
-                        <h3>Professional and Experienced Team</h3>
-                        <p>Impeccable installations and repairs.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <img src="icon_customer_service.png" alt="Personalized attention icon" class="modern-icon">
-                        <h3>Personalized Attention</h3>
-                        <p>We adapt to your specific needs.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <img src="icon_scheduling_estimate.png" alt="Clear estimates icon" class="modern-icon">
-                        <h3>Clear and Free Estimates</h3>
-                        <p>No surprises, total transparency.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <img src="icon_inspection_satisfaction.png" alt="Satisfaction guaranteed icon" class="modern-icon">
-                        <h3>Satisfaction Guaranteed</h3>
-                        <p>We pride ourselves on our work and the trust of our clients.</p>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="services-cta">
-                <h3>Don’t Wait Until It Leaks.</h3>
-                <p>Get a gutter system you can trust. Contact N&K Seamless Gutter today for your free, no-obligation consultation.</p>
-                <div class="contact-options">
-                    <a href="index.html#quoteFormSection" class="cta-button">Request Your FREE Quote</a>
-                    <a href="" class="contact-button cta-button">Call Us Now: (561) 268-6290</a>
-                    <a href="contact.html" class="contact-button cta-button secondary">Contact Us</a>
-                </div>
-            </div>
-        </section>
-    </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section footer-logo-area">
-                <a href="index.html"><img src="icono.jpg" alt="NK & Gutter Logo" class="footer-logo"></a>
-                <p>N&K Gutter</p>
+            <div class="card">
+                <div class="card-img">
+                    <img src="trabajo9.jpg" alt="Drainage">
+                    <div class="overlay">💧</div>
+                </div>
+                <div class="content">
+                    <h3>Underground Drainage</h3>
+                    <p>Protect foundation with hidden drainage systems</p>
+                    <ul>
+                        <li>Foundation protection</li>
+                        <li>Prevents erosion</li>
+                        <li>Aesthetic solution</li>
+                        <li>Long-lasting</li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p>Phone: <a href="">(561) 268-6290</a></p>
-                <p>Email: <a href="mailto:nykseamlessgutter@gmail.com">nykseamlessgutter@gmail.com</a></p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="trabm.jpeg" alt="Repair">
+                    <div class="overlay">🔧</div>
+                </div>
+                <div class="content">
+                    <h3>Expert Repair</h3>
+                    <p>Quick diagnosis and reliable repairs with quality materials</p>
+                    <ul>
+                        <li>Quick problem solving</li>
+                        <li>Prevents major damage</li>
+                        <li>Extended lifespan</li>
+                        <li>Quality materials</li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 N&K seamless gutter LLC.</p>
-        </div>
-    </footer>
+    </section>
 
-    
+    <!-- Color Options Section -->
+    <section class="colors-section" style="padding: 6rem 2rem; background: linear-gradient(180deg, #0f172a, #1e293b); position: relative;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="intro">
+                <h2>Choose Your Perfect Color</h2>
+                <p>Customize your gutters to complement your home's aesthetic with our wide range of premium colors</p>
+            </div>
+
+            <div class="colors-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                <!-- White -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #FFFFFF; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">White</h4>
+                </div>
+
+                <!-- Cream -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #F5F3E8; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Cream</h4>
+                </div>
+
+                <!-- Eggshell -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #E8E5D5; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Eggshell</h4>
+                </div>
+
+                <!-- Almond -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #F0E4C8; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Almond</h4>
+                </div>
+
+                <!-- Linen -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #E0DDD3; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Linen</h4>
+                </div>
+
+                <!-- Colonial Gray -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #B8BCC0; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Colonial Gray</h4>
+                </div>
+
+                <!-- Clay -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #A8A59D; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Clay</h4>
+                </div>
+
+                <!-- Bronze -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #4A4A47; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Bronze</h4>
+                </div>
+
+                <!-- Tuxedo Gray -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #5C5E61; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Tuxedo Gray</h4>
+                </div>
+
+                <!-- Terratone -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #8B8670; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Terratone</h4>
+                </div>
+
+                <!-- Ivory -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #E8DCC0; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Ivory</h4>
+                </div>
+
+                <!-- Copper -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #C77442; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Copper</h4>
+                </div>
+
+                <!-- Musket Brown -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #6B5D3F; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Musket Brown</h4>
+                </div>
+
+                <!-- Royal Brown -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #603F1A; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Royal Brown</h4>
+                </div>
+
+                <!-- Black -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #000000; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Black</h4>
+                </div>
+
+                <!-- Wicker -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #D4C9A8; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Wicker</h4>
+                </div>
+
+                <!-- Sandcastle -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #C4BCB0; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Sandcastle</h4>
+                </div>
+
+                <!-- Dark Gray -->
+                <div class="color-card" style="background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s; cursor: pointer;">
+                    <div style="width: 100%; aspect-ratio: 1; background: #9BA1A8; border-radius: 15px; margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.5s;"></div>
+                    <h4 style="color: white; font-size: 1.1rem; font-weight: 600;">Dark Gray</h4>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem; margin-bottom: 2rem;">
+                    Not sure which color is right for you? Our experts can help you choose the perfect match for your home.
+                </p>
+                <a href="contact.html" class="btn btn-primary">Get Color Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Don't Wait Until It Leaks</h2>
+        <p>Get a gutter system you can trust. Contact us today for your free consultation</p>
+        <div class="btn-group">
+            <a href="index.html#quoteFormSection" class="btn btn-primary">Request FREE Quote</a>
+            <a href="tel:+15612686290" class="btn btn-primary">Call: (561) 268-6290</a>
+            <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+    </script>
 </body>
 </html>

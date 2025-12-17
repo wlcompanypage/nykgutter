@@ -5,220 +5,1020 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N&K Gutter - Professional Gutter Solutions</title>
     <link rel="icon" href="icono.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FF7A00;
+            --primary-rgb: 255, 122, 0;
+            --secondary-color: #0A2E5C;
+            --secondary-rgb: 10, 46, 92;
+            --accent-color: #FFC107;
+            --text-color: #212529;
+            --text-light: #495057;
+            --white: #ffffff;
+            --dark-bg: #0f172a;
+            --glow-color: rgba(255, 122, 0, 0.5);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-   <script type="module">
-    import gsap from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-    import ScrollTrigger from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-    import ScrollToPlugin from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js';
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: var(--dark-bg);
+            color: var(--text-color);
+        }
 
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        /* Advanced 3D Navigation */
+        .modern-header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    import 'script.js';
-</script>
+        .modern-header.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
 
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-3d {
+            height: 60px;
+            filter: drop-shadow(0 0 20px var(--glow-color));
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .logo-3d:hover {
+            transform: rotateY(360deg) scale(1.1);
+            filter: drop-shadow(0 0 30px var(--primary-color));
+        }
+
+        .nav-links-modern {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links-modern a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .nav-links-modern a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: translateX(-50%);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links-modern a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            text-shadow: 0 5px 15px var(--glow-color);
+        }
+
+        .nav-links-modern a:hover::before {
+            width: 100%;
+        }
+
+        .cta-nav-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255, 122, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .cta-nav-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .cta-nav-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 122, 0, 0.6);
+        }
+
+        .cta-nav-button:hover::before {
+            left: 100%;
+        }
+
+        /* Epic 3D Hero Section */
+        .hero-3d {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            padding: 6rem 2rem;
+        }
+
+        .hero-3d::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 122, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 193, 7, 0.1) 0%, transparent 50%);
+            animation: pulseGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .hero-content-3d {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text-3d {
+            transform-style: preserve-3d;
+            animation: floatIn 1s ease-out;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) rotateX(-20deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        .hero-text-3d h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--white) 0%, var(--primary-color) 50%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: gradientShift 5s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-3d {
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .btn-primary-3d {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            box-shadow: 0 15px 35px rgba(255, 122, 0, 0.4);
+        }
+
+        .btn-primary-3d:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 122, 0, 0.6);
+        }
+
+        .btn-secondary-3d {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary-3d:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        /* 3D Form Card */
+        .form-card-3d {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: floatIn 1s ease-out 0.3s both;
+        }
+
+        .form-card-3d:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-card-3d h3 {
+            color: var(--white);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .input-3d {
+            width: 100%;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-3d:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .input-3d::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Floating Particles Background */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1);
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translate(100px, -100px) scale(1.5);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translate(-50px, -200px) scale(1);
+                opacity: 0.4;
+            }
+            75% { 
+                transform: translate(-100px, -100px) scale(1.2);
+                opacity: 0.7;
+            }
+        }
+
+        /* 3D Info Cards Section */
+        .cards-section-3d {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+        }
+
+        .section-title-3d {
+            text-align: center;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--white), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .cards-grid-3d {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            perspective: 1000px;
+        }
+
+        .info-card-3d {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 122, 0, 0.1));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .info-card-3d:hover {
+            transform: translateY(-20px) rotateX(5deg);
+            border-color: var(--primary-color);
+            box-shadow: 0 30px 60px rgba(255, 122, 0, 0.3);
+        }
+
+        .info-card-3d:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon-3d {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 30px rgba(255, 122, 0, 0.4);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .info-card-3d:hover .card-icon-3d {
+            transform: rotateY(360deg) scale(1.1);
+        }
+
+        .info-card-3d h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card-3d p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        /* 3D Gallery Section */
+        .gallery-3d {
+            padding: 6rem 2rem;
+            background: #0f172a;
+        }
+
+        .gallery-grid-3d {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item-3d {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .gallery-item-3d img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-overlay-3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 122, 0, 0.9), rgba(255, 193, 7, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item-3d:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-item-3d:hover img {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .gallery-item-3d:hover .gallery-overlay-3d {
+            opacity: 1;
+        }
+
+        .gallery-caption-3d {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item-3d:hover .gallery-caption-3d {
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links-modern {
+                display: none;
+            }
+
+            .hero-content-3d {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-text-3d h1 {
+                font-size: 2.5rem;
+            }
+
+            .form-card-3d {
+                padding: 2rem;
+            }
+
+            .cards-grid-3d,
+            .gallery-grid-3d {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .process-card-3d {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-card-3d::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 122, 0, 0.15));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .process-card-3d:hover {
+            transform: translateY(-20px) rotateX(8deg);
+            border-color: var(--primary-color);
+            box-shadow: 0 30px 70px rgba(255, 122, 0, 0.3);
+        }
+
+        .process-card-3d:hover::before {
+            opacity: 1;
+        }
+
+        .step-number {
+            position: absolute;
+            margin-top: 20px;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 900;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(255, 122, 0, 0.5);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            margin: 2rem auto 1.5rem;
+            filter: drop-shadow(0 0 15px var(--primary-color));
+            transition: transform 0.6s ease;
+        }
+
+        .process-card-3d:hover .step-icon {
+            transform: scale(1.15) rotate(10deg);
+        }
+
+        .process-card-3d h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin: 1rem 0 1rem;
+            background: linear-gradient(135deg, var(--white), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .process-card-3d p {
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .process-card-3d {
+                padding: 2rem 1.5rem;
+            }
+            .step-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        .timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  perspective: 1200px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .timeline-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .timeline-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo-link"><img src="icono.jpg" alt="NK & Gutter Logo" class="logo"></a>
-            <div class="nav-links">
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <a href="" class="phone-button cta-button-nav">Call Now: (561) 268-6290</a>
+    <!-- Modern 3D Navigation -->
+    <header class="modern-header">
+        <nav class="nav-container">
+            <a href="index.html">
+                <img src="icono.jpg" alt="N&K Gutter" class="logo-3d">
+            </a>
+            <ul class="nav-links-modern">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="tel:+15612686290" class="cta-nav-button">Call Now: (561) 268-6290</a>
         </nav>
     </header>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h1>
-                <span>N&K  Seamless Gutter LLC</span><br>
-                <span>Where Protection Meets Elegance.</span>
-            </h1>
-            <p class="hero-subtext">We use premium materials and cutting-edge technology to ensure efficient, durable, and aesthetically pleasing gutters for your property.</p>
-            <button class="cta-button hero-cta" onclick="openQuoteForm()">Get Your FREE Estimate Today</button>
-        </div>
-        <div class="quote-form-container" id="quoteFormSection">
-            <div class="quote-form" id="quoteForm">
-    <h3>Schedule Your Free Quote</h3>
-    <div id="formMessage" class="form-message" style="display: none;"></div>
-    <form id="estimateForm">
-        <input type="text" name="fullName" placeholder="Full Name" required>
-        <input type="text" name="address" placeholder="Address" required>
-        <input type="tel" name="phone_number" placeholder="Phone Number" required>
-        <button type="submit" class="cta-button form-submit-button">Submit Request</button>
-    </form>
-</div>
+    <!-- Epic 3D Hero Section -->
+    <section class="hero-3d">
+        <div class="particles" id="particlesContainer"></div>
+        
+        <div class="hero-content-3d">
+            <div class="hero-text-3d">
+                <h1>
+                    N&K Seamless<br>
+                    Gutter LLC
+                </h1>
+                <p class="hero-subtitle">
+                    Where Protection Meets Elegance. Premium materials and cutting-edge technology 
+                    ensure efficient, durable, and aesthetically pleasing gutters for your property.
+                </p>
+                <div class="hero-cta-group">
+                    <button class="btn-3d btn-primary-3d" onclick="scrollToForm()">
+                        Get FREE Estimate
+                    </button>
+                    <button class="btn-3d btn-secondary-3d" onclick="window.location.href='services.html'">
+                        View Services
+                    </button>
+                </div>
+            </div>
 
+            <!-- 3D Quote Form -->
+            <div class="form-card-3d" id="quoteFormSection">
+                <h3>Schedule Your Free Quote</h3>
+                <form id="estimateForm">
+                    <input type="text" name="fullName" placeholder="Full Name" class="input-3d" required>
+                    <input type="text" name="address" placeholder="Address" class="input-3d" required>
+                    <input type="tel" name="phone_number" placeholder="Phone Number" class="input-3d" required>
+                    <button type="submit" class="btn-3d btn-primary-3d" style="width: 100%;">
+                        Submit Request
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
 
-    <!-- Rest of your HTML remains unchanged -->
-    <section id="commitment-excellence" class="content-section">
-        <h2>Our Commitment to Excellence</h2>
-        <p class="section-subtext">Experience the N&K Gutter difference. We are dedicated to providing top-tier service and lasting solutions for your peace of mind.</p>
-        <div class="info-grid">
-            <div class="info-card">
-                <img src="icon_craftsmanship_tools.png" alt="Precision craftsmanship icon" class="modern-icon">
+    <!-- 3D Info Cards Section -->
+    <section class="cards-section-3d">
+        <h2 class="section-title-3d">Our Commitment to Excellence</h2>
+        <p class="section-subtitle">
+            Experience the N&K Gutter difference with top-tier service and lasting solutions
+        </p>
+        
+        <div class="cards-grid-3d">
+            <div class="info-card-3d">
+                <div class="card-icon-3d">🎯</div>
                 <h3>Precision Installation</h3>
                 <p>Every gutter system is meticulously installed for optimal performance and longevity, ensuring perfect water flow and protection.</p>
             </div>
-            <div class="info-card">
-                <img src="icon_shield_protection.png" alt="Durable materials shield icon" class="modern-icon">
+            <div class="info-card-3d">
+                <div class="card-icon-3d">🛡️</div>
                 <h3>Durable Materials</h3>
                 <p>We use only high-grade materials that withstand the elements, resist corrosion, and protect your investment for years to come.</p>
             </div>
-            <div class="info-card">
-                <img src="icon_craftsmanship_tools.png" alt="Skilled craftsmanship icon" class="modern-icon">
+            <div class="info-card-3d">
+                <div class="card-icon-3d">⚡</div>
                 <h3>Skilled Craftsmanship</h3>
                 <p>Our experienced team combines expert technique with close attention to detail, delivering reliable results you can count on.</p>
             </div>
         </div>
     </section>
 
-    <section id="customer-focused" class="content-section alt-bg">
-        <h2>Satisfaction is Our Top Priority!</h2>
-        <p class="section-subtext">At N&K Gutter, we’re committed to building lasting relationships through trust, transparency, and outstanding customer service—from the initial consultation to project completion.</p>
-        <div class="customer-focus-points">
-            <div class="focus-point">
-                <img src="icon_customer_service.png" alt="Clear communication icon" class="modern-icon">
-                <h4>Clear Communication</h4>
-                <p>Transparency is at the heart of what we do. You’ll always know where things stand with timely updates and clear, honest communication.</p>
+    <!-- 3D Gallery Section -->
+    <section class="gallery-3d">
+        <h2 class="section-title-3d">Check Out Our Quality Work</h2>
+        <p class="section-subtitle">
+            Our recent projects showcase attention to detail, durability, and visual appeal
+        </p>
+        
+        <div class="gallery-grid-3d">
+            <div class="gallery-item-3d">
+                <img src="trab1.jpg" alt="Project 1">
+                <div class="gallery-overlay-3d">
+                    <div class="gallery-caption-3d">Pristine Installation</div>
+                </div>
             </div>
-            <div class="focus-point">
-                <img src="icon_customer_service.png" alt="Personalized solutions icon" class="modern-icon">
-                <h4>Personalized Solutions</h4>
-                <p>We take the time to understand your unique needs and customize our services to deliver the most effective gutter solution for your property.</p>
+            <div class="gallery-item-3d">
+                <img src="trab2.jpg" alt="Project 2">
+                <div class="gallery-overlay-3d">
+                    <div class="gallery-caption-3d">Enhanced Curb Appeal</div>
+                </div>
             </div>
-            <div class="focus-point">
-                <img src="icon_customer_service.png" alt="Reliable support icon" class="modern-icon">
-                <h4>Reliable Support</h4>
-                <p>Our commitment doesn’t end with installation. From timely communication to ongoing support, we’re here to ensure your satisfaction every step of the way.</p>
+            <div class="gallery-item-3d">
+                <img src="trab3.jpg" alt="Project 3">
+                <div class="gallery-overlay-3d">
+                    <div class="gallery-caption-3d">Seamless Integration</div>
+                </div>
             </div>
-        </div>
-        <div class="cta-centered-container">
-            <a href="index.html#quoteFormSection" class="cta-button large-button">Experience Our Dedicated Service - Get a Quote!</a>
-        </div>
-    </section>
-
-    <section id="gallery-showcase" class="content-section">
-        <h2>Check Out Our Quality Work</h2>
-        <p class="section-subtext">Our recent projects showcase the attention to detail, durability, and visual appeal that define every N&K Gutter installation.</p>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="trabajo11.jpg" alt="Mauve house with new gutters">
-                <div class="gallery-item-caption">Pristine Installation</div>
-            </div>
-            <div class="gallery-item">
-                <img src="trabajo12.jpg" alt="Patio area with house and gutters">
-                <div class="gallery-item-caption">Enhanced Curb Appeal</div>
-            </div>
-            <div class="gallery-item">
-                <img src="trabajo9.jpg" alt="House 5936 with new gutters">
-                <div class="gallery-item-caption">Seamless Integration</div>
-            </div>
-            <div class="gallery-item">
-                <img src="trabajo10.jpg" alt="House patio under construction with new gutters">
-                <div class="gallery-item-caption">Durable & Effective</div>
+            <div class="gallery-item-3d">
+                <img src="trab4.jpg" alt="Project 4">
+                <div class="gallery-overlay-3d">
+                    <div class="gallery-caption-3d">Durable & Effective</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="easy-steps" class="content-section alt-bg">
-        <h2>Getting Your Perfect Gutters Installed Is Easy</h2>
-        <p class="section-subtext">Our streamlined process ensures a hassle-free experience, delivering exceptional results with minimal disruption to your day.</p>
-        <div class="steps-grid">
-            <div class="step-card">
-                <span class="step-number">1</span>
-                <img src="icon_scheduling_estimate.png" alt="Consultation and estimate icon" class="modern-icon">
-                <h3>Free Consultation & Estimate</h3>
-                <p>We’ll visit your property, listen to your needs, and provide a clear, no-obligation quote.</p>
+    <!-- NEW SECTION: Getting Your Perfect Gutters Installed Is Easy -->
+    <section class="process-section-3d" style="padding: 8rem 2rem; background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); position: relative; overflow: hidden;">
+        <div style="max-width: 1400px; margin: 0 auto; text-align: center;">
+            <h2 class="section-title-3d" style="margin-bottom: 1rem;">
+                Getting Your Perfect Gutters Installed Is Easy
+            </h2>
+            <p style="color: rgba(255,255,255,0.7); font-size: 1.3rem; max-width: 800px; margin: 0 auto 4rem;">
+                Our streamlined process ensures a hassle-free experience, delivering exceptional results with minimal disruption to your day.
+            </p>
+
+            <!-- 5 Steps Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; perspective: 1200px;">
+                
+                <!-- Paso 1 -->
+                <div class="process-card-3d">
+                    <div class="step-number">1</div>
+                    <img src="https://img.icons8.com/ios-filled/100/ffffff/search.png" alt="Consulta" class="step-icon">
+                    <h3>Free Consultation & Estimate</h3>
+                    <p>We’ll visit your property, listen to your needs, and provide a clear, no-obligation quote.</p>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="process-card-3d">
+                    <div class="step-number">2</div>
+                    <img src="https://img.icons8.com/ios-filled/100/ffffff/calendar.png" alt="Programación" class="step-icon">
+                    <h3>Custom Fabrication & Scheduling</h3>
+                    <p>Once you approve the estimate, we’ll schedule your installation and design a custom gutter system tailored to your property.</p>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="process-card-3d">
+                    <div class="step-number">3</div>
+                    <img src="https://img.icons8.com/ios-filled/100/ffffff/home.png" alt="Instalación" class="step-icon">
+                    <h3>Precision Installation</h3>
+                    <p>Our skilled team completes the installation with accuracy and care—ensuring quality, durability, and a clean finish.</p>
+                </div>
+
+                <!-- Paso 4 -->
+                <div class="process-card-3d">
+                    <div class="step-number">4</div>
+                    <img src="https://img.icons8.com/ios-filled/100/ffffff/checklist.png" alt="Inspección" class="step-icon">
+                    <h3>Final Inspection</h3>
+                    <p>We thoroughly inspect every detail to ensure your new gutters meet our high standards—and your full satisfaction.</p>
+                </div>
+
+                <!-- Paso 5 -->
+                <div class="process-card-3d">
+                    <div class="step-number">5</div>
+                    <img src="https://img.icons8.com/ios-filled/100/ffffff/headset.png" alt="Soporte" class="step-icon">
+                    <h3>Reliable Support</h3>
+                    <p>Even after the job is complete, we’re here to help—ready to answer your questions or provide ongoing support.</p>
+                </div>
             </div>
-            <div class="step-card">
-                <span class="step-number">2</span>
-                <img src="icon_craftsmanship_tools.png" alt="Custom fabrication icon" class="modern-icon">
-                <h3>Custom Fabrication & Scheduling</h3>
-                <p>Once you approve the estimate, we’ll schedule your installation and design a custom gutter system tailored to your property.</p>
-            </div>
-            <div class="step-card">
-                <span class="step-number">3</span>
-                <img src="icon_home_installation.png" alt="Professional home installation icon" class="modern-icon">
-                <h3>Precision Installation</h3>
-                <p>Our skilled team completes the installation with accuracy and care—ensuring quality, durability, and a clean finish.</p>
-            </div>
-            <div class="step-card">
-                <span class="step-number">4</span>
-                <img src="icon_inspection_satisfaction.png" alt="Inspection and satisfaction icon" class="modern-icon">
-                <h3>Final Inspection</h3>
-                <p>We thoroughly inspect every detail to ensure your new gutters meet our high standards—and your full satisfaction.</p>
-            </div>
-            <div class="step-card">
-                <span class="step-number">5</span>
-                <img src="icon_quality_excellence.png" alt="Inspection and satisfaction icon" class="modern-icon">
-                <h3>Reliable Support</h3>
-                <p>Even after the job is complete, we’re here to help—ready to answer your questions or provide ongoing support.</p>
-            </div>
-        </div>
-        <div class="cta-centered-container">
-            <a href="services.html" class="cta-button secondary">Explore Our Services</a>
+
+            <!-- Botón central -->
+            <a href="services.html" class="btn-3d btn-primary-3d" style="display: inline-block; margin-top: 3rem; padding: 1.3rem 3.5rem; font-size: 1.2rem;">
+                Explore Our Services
+            </a>
         </div>
     </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section footer-logo-area">
-                <a href="index.html"><img src="icono.png" alt="NK & Gutter Logo" class="footer-logo"></a>
-                <p>N&K Gutter</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p>Phone: <a href="">(561) 268-6290</a></p>
-                <p>Email: <a href="mailto:nykseamlessgutter@gmail.com">nykseamlessgutter@gmail.com</a></p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+
+    <!-- What Happens After You Submit? -->
+    <section style="padding: 8rem 2rem; background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); position: relative; overflow: hidden;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <h2 class="section-title-3d" style="margin-bottom: 1rem;">
+                What Happens After You Submit Your Request?
+            </h2>
+            <p style="color: rgba(255,255,255,0.7); font-size: 1.2rem; max-width: 700px; margin: 0 auto 5rem;">
+                Here's exactly what you can expect from the moment you contact us
+            </p>
+
+            <!-- Timeline Steps -->
+            <!-- Timeline Steps (REEMPLAZA ESTE DIV) -->
+            <div class="timeline-grid">
+                
+                <!-- Step 1 -->
+                <div class="process-card-3d">
+                    <div class="step-number">1</div>
+                    <img src="https://img.icons8.com/ios-filled/100/ffffff/email.png" alt="Confirmation" class="step-icon">
+                    <h3>Instant Confirmation</h3>
+                    <p>You'll receive an immediate confirmation of your request. We've got your information and we're on it!</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="process-card-3d">
+                    <div class="step-number">2</div>
+                    <img src="https://img.icons8.com/ios-filled/100/ffffff/phone.png" alt="Contact" class="step-icon">
+                    <h3>Quick Response</h3>
+                    <p>Within 24 hours, our team will contact you to discuss your needs and schedule a convenient time for an on-site visit.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="process-card-3d">
+                    <div class="step-number">3</div>
+                    <img src="https://img.icons8.com/ios-filled/100/ffffff/measure.png" alt="Visit" class="step-icon">
+                    <h3>Property Assessment</h3>
+                    <p>We visit your property to evaluate your gutter needs, take precise measurements, and understand your specific requirements.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="process-card-3d">
+                    <div class="step-number">4</div>
+                    <img src="https://img.icons8.com/ios-filled/100/ffffff/calculator.png" alt="Quote" class="step-icon">
+                    <h3>Detailed Quote</h3>
+                    <p>Receive a transparent, itemized quote with no hidden fees—just honest pricing for quality work.</p>
+                </div>
+            </div>}
+
+            
+            
+            
+
+            <div style="margin-top: 4rem; padding: 2.5rem; background: rgba(255, 122, 0, 0.1); border: 2px solid var(--primary-color); border-radius: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h3 style="color: var(--white); font-size: 1.8rem; margin-bottom: 1rem;">⚡ Fast Response Guarantee</h3>
+                <p style="color: rgba(255,255,255,0.85); font-size: 1.1rem; line-height: 1.8;">
+                    We pride ourselves on quick, professional communication. Your time is valuable, and we make sure you're never left waiting for answers.
+                </p>
             </div>
         </div>
-        <div class="copyright">
-            <p>© 2025 N&K seamless gutter LLC</p>
+    </section>
+
+
+    <!-- Google Reviews & CTA Section -->
+    <section style="padding: 8rem 2rem; background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);">
+        <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; align-items: center;">
+            
+            <!-- Google Reviews Card -->
+            <div class="info-card-3d" style="padding: 5rem 2.5rem;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" style="width: 150px; margin-bottom: 1rem;">
+                    <div style="font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-bottom: 0.5rem;">Reviews</div>
+                    <div style="font-size: 2rem; color: #FFC107; margin-bottom: 0.5rem;">⭐⭐⭐⭐⭐</div>
+                    <div style="font-size: 2.5rem; font-weight: 900; color: var(--white); margin-bottom: 0.5rem;">5/5 STARS</div>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 2rem;">
+                        Visit our reviews page and explore more about us
+                    </p>
+                </div>
+                <a href="https://www.google.com/localservices/prolist?g2lbs=AIQllVymyMkW9-0XHeT2h7nNBMU307i3SBrCFbVhxVel7dDV5XMp80MMtTAgXwzUAwB0RXZAnJrKA6mDWAMDmCeFdX4toy7111wDWm74-sUuypUoCayg7VW7nTpKS3vVNVCsLk9I2-Gm&hl=en-US&gl=us&ssta=1&oq=family%20gutters&src=2&lrlstt=1713799839635&q=nyk%20seamless%20gutter&ved=2ahUKEwjhu_j02sSRAxU5cqsCHWRcGEEQjdcJegQIABAF&scp=ChNnY2lkOmd1dHRlcl9zZXJ2aWNlEgAaACoOR3V0dGVyIHNlcnZpY2U%3D&slp=MgBAAVIECAIgAIgBAA%3D%3D&spp=Cg0vZy8xMXhrbHljMjRwOiBXaFVpRTI1NWF5QnpaV0Z0YkdWemN5Qm5kWFIwWlhJPQ%3D%3D" 
+                   target="_blank" 
+                   class="btn-3d btn-primary-3d" 
+                   style="width: 100%; padding: 1.2rem; font-size: 1.1rem;">
+                    GOOGLE REVIEWS →
+                </a>
+            </div>
+
+            <!-- Free Estimate CTA Card -->
+            <div class="info-card-3d" style="padding: 3rem 2.5rem; background: linear-gradient(135deg, rgba(255, 122, 0, 0.1), rgba(255, 193, 7, 0.1));">
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📋</div>
+                    <h3 style="font-size: 2rem; color: var(--white); margin-bottom: 1rem;">
+                        Ready to Get Started?
+                    </h3>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                        Get your free estimate today! Our team is ready to provide you with a detailed quote and answer all your questions.
+                    </p>
+                    <button onclick="scrollToForm()" 
+                            class="btn-3d btn-primary-3d" 
+                            style="width: 100%; padding: 1.2rem; font-size: 1.1rem; margin-bottom: 1rem;">
+                        FREE ESTIMATE →
+                    </button>
+                    <a href="tel:+15612686290" 
+                       style="display: block; color: var(--white); text-decoration: none; font-size: 1.3rem; font-weight: 700; margin-top: 1rem;">
+                        📞 (561) 268-6290
+                    </a>
+                </div>
+            </div>
         </div>
-    </footer>
+    </section>
 
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  (function() {
-    emailjs.init("NK9TTvORN_0t_ZgmW"); // tu Public Key
-  })();
+    
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        // EmailJS Configuration
+        (function() {
+            emailjs.init("NK9TTvORN_0t_ZgmW");
+        })();
 
-  document.getElementById("estimateForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+        document.getElementById("estimateForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            emailjs.sendForm("nyk_service", "nyk_template", this)
+                .then(function(response) {
+                    alert("Application sent successfully!");
+                    console.log("SUCCESS!", response.status, response.text);
+                }, function(error) {
+                    alert("There was an error. Please try again.");
+                    console.log("FAILED...", error);
+                });
+            this.reset();
+        });
 
-    emailjs.sendForm("nyk_service", "nyk_template", this)
-      .then(function(response) {
-        alert("Application sent successfully!");
-        console.log("SUCCESS!", response.status, response.text);
-      }, function(error) {
-        alert("There was an error. Please try again.");
-        console.log("FAILED...", error);
-      });
+        // Scroll to form function
+        function scrollToForm() {
+            document.getElementById('quoteFormSection').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
 
-    // Limpiar el formulario si quieres
-    this.reset();
-  });
-</script>
+        // Particles Animation
+        const particlesContainer = document.getElementById('particlesContainer');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
 
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.modern-header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
+        // Parallax effect for hero
+        window.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.querySelector('.hero-text-3d').style.transform = 
+                `translateX(${moveX}px) translateY(${moveY}px)`;
+            document.querySelector('.form-card-3d').style.transform = 
+                `translateX(${-moveX}px) translateY(${-moveY}px)`;
+        });
+    </script>
 </body>
 </html>

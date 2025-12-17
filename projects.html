@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,212 +5,838 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Projects - N&K Gutter</title>
     <link rel="icon" href="icono.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-   <script type="module">
-    import gsap from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-    import ScrollTrigger from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-    import ScrollToPlugin from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js';
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF7A00;
+            --secondary: #0A2E5C;
+            --accent: #FFC107;
+            --dark: #0f172a;
+        }
 
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    import 'script.js';
-</script>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s;
+        }
+
+        .header.scrolled {
+            background: rgba(15,23,42,0.95);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { 
+            height: 60px; 
+            transition: all 0.5s;
+            filter: drop-shadow(0 0 20px rgba(255,122,0,0.5));
+        }
+        
+        .logo:hover { 
+            transform: rotateY(360deg) scale(1.1);
+            filter: drop-shadow(0 0 30px var(--primary));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: translateX(-50%);
+            transition: width 0.4s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::before { width: 100%; }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255,122,0,0.4);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,122,0,0.6);
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,122,0,0.15), transparent 70%);
+            top: -300px;
+            right: -300px;
+            animation: pulse 10s infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,193,7,0.1), transparent 70%);
+            bottom: -200px;
+            left: -200px;
+            animation: pulse 8s infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.3) rotate(45deg); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, white 0%, var(--primary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 0 80px rgba(255,122,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gallery-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #1e293b, #0f172a);
+            position: relative;
+        }
+
+        .section-header {
+            max-width: 900px;
+            margin: 0 auto 5rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, white, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .gallery-grid {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+            perspective: 1000px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+            transform-style: preserve-3d;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255,122,0,0.1));
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-20px) rotateX(5deg) scale(1.03);
+            border-color: var(--primary);
+            box-shadow: 
+                0 40px 100px rgba(0,0,0,0.5),
+                0 0 80px rgba(255,122,0,0.4);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .img-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .gallery-item:hover .img-container img {
+            transform: scale(1.2) rotate(3deg);
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,122,0,0.95), rgba(255,193,7,0.95));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 2;
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            transform: scale(0) rotate(-180deg);
+            transition: transform 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
+        }
+
+        .gallery-item:hover .overlay-icon {
+            transform: scale(1) rotate(0deg);
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(10,46,92,0.95), transparent);
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            z-index: 3;
+        }
+
+        .gallery-item:hover .caption {
+            transform: translateY(0);
+        }
+
+        .caption h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .caption p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+        }
+
+        .gutter-types {
+            padding: 6rem 2rem;
+            background: #0f172a;
+            position: relative;
+        }
+
+        .types-grid {
+            max-width: 1400px;
+            margin: 4rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .type-card {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.6s;
+            position: relative;
+        }
+
+        .type-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, var(--primary), transparent 30%);
+            opacity: 0;
+            transition: all 0.6s;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .type-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .type-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(255,122,0,0.3);
+        }
+
+        .type-img {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .type-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+
+        .type-card:hover .type-img img {
+            transform: scale(1.15);
+        }
+
+        .type-content {
+            padding: 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .type-content h4 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .type-content p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .type-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .type-content li {
+            color: rgba(255,255,255,0.8);
+            padding: 0.6rem 0 0.6rem 2rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .type-content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .gallery-grid, .types-grid { grid-template-columns: 1fr; }
+            .hero { padding: 6rem 1.5rem 3rem; }
+            .img-container { height: 300px; }
+            .gallery-item:hover {
+                transform: translateY(-10px) scale(1.02);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .img-container {
+                height: 250px;
+            }
+        }
+
+          .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.4s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 15px 35px rgba(255,122,0,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255,122,0,0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .grid { grid-template-columns: 1fr; }
+            .hero { padding: 6rem 1.5rem 3rem; }
+            .btn-group { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo-link"><img src="icono.jpg" alt="NK & Gutter Logo" class="logo"></a>
-            <div class="nav-links">
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <a href="tel:+15612686290" class="phone-button cta-button-nav">Call Now: (561) 268-6290</a>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html"><img src="icono.jpg" alt="N&K Gutter" class="logo"></a>
+            <ul class="nav-links">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="tel:+15612686290" class="cta-btn">Call: (561) 268-6290</a>
         </nav>
     </header>
 
-    <main class="page-main-content">
-        <section id="projects-hero" class="projects-hero-bg">
-             <div class="projects-hero-overlay">
-                <h1>Our Project Portfolio</h1>
-                <p class="hero-subtext">Witness the quality, precision, and aesthetic excellence we bring to every home and business.</p>
-            </div>
-        </section>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Our Project Portfolio</h1>
+            <p>Witness the quality, precision, and aesthetic excellence we bring to every home and business</p>
+        </div>
+    </section>
 
-        <section id="projects-gallery-section" class="content-section">
-            <div class="container">
-                <h2 class="text-center">A Showcase of Our Craftsmanship</h2>
-                <p class="section-subtext text-center">Showcase of Our Craftsmanship
-Explore our gallery of completed gutter installations, where quality meets curb appeal. Each project demonstrates our dedication to durable materials, expert functionality, and a polished finish that enhances every home’s exterior.</p>
-                <div class="gallery-grid projects-gallery">
-                    <div class="gallery-item">
-                        <img src="trabajo1.jpg" alt="Mauve house with new gutters by NK & Gutter">
-                        <div class="gallery-item-caption">Flawless Finish on Mauve Stucco</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="trabajo2.jpg" alt="Copper gutter system installed by NK & Gutter">
-                        <div class="gallery-item-caption">Elegant Copper Gutter System</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="trabajo3.jpg" alt="Patio area protection with NK & Gutter gutters">
-                        <div class="gallery-item-caption">Protecting Outdoor Living Spaces</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="trabajo8.jpg" alt="House 5936 with new gutters from NK & Gutter">
-                        <div class="gallery-item-caption">Seamless Integration for Modern Homes</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="trabajo11.jpg" alt="New house exterior with NK & Gutter gutters">
-                        <div class="gallery-item-caption">Crisp Lines on New Construction</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="trabajo9.jpg" alt="House patio construction with new gutters by NK & Gutter">
-                        <div class="gallery-item-caption">Durable Solutions for Patios & Homes</div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="trabajo13.jpg" alt="Grey stucco house exterior with new gutters by NK & Gutter">
-                        <div class="gallery-item-caption">Stucco Home Gutter Enhancement</div>
+    <section class="gallery-section">
+        <div class="section-header">
+            <h2>Showcase of Our Craftsmanship</h2>
+            <p>Explore our gallery of completed gutter installations, where quality meets curb appeal. Each project demonstrates our dedication to durable materials and expert functionality.</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="trabajo1.jpg" alt="Mauve house installation">
+                    <div class="overlay">
+                        <div class="overlay-icon">🏆</div>
                     </div>
                 </div>
+                <div class="caption">
+                    <h3>Flawless Finish on Mauve Stucco</h3>
+                    <p>Seamless integration with modern architecture</p>
+                </div>
             </div>
-        </section>
 
-        <section id="gutter-types-showcase" class="content-section">
-        <div class="container">
-            <h2>Premium Gutter Systems We Install</h2>
-            <p class="section-subtext">Explore our full range of high-performance gutter solutions, designed for long-lasting durability, reliable function, and a clean, attractive finish that complements your home’s architecture.</p>
-            
-            <div class="gutter-types-grid">
-                <div class="gutter-type-item">
-                    <div class="gutter-image-container">
-                        <img src="k-style.jpg" alt="K-Style Gutters" class="gutter-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="placeholder-text" style="display: none;">
-                            K-Style Gutter Image<br>
-                            <small>Reemplazar con: images/k-style-gutter.jpg</small>
-                        </div>
-                        <div class="image-overlay"></div>
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="trabm.jpeg" alt="Copper gutter system">
+                    <div class="overlay">
+                        <div class="overlay-icon">💎</div>
                     </div>
+                </div>
+                <div class="caption">
+                    <h3>Elegant Copper Gutter System</h3>
+                    <p>Premium materials for lasting beauty</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="trabajo3.jpg" alt="Patio protection">
+                    <div class="overlay">
+                        <div class="overlay-icon">🛡️</div>
+                    </div>
+                </div>
+                <div class="caption">
+                    <h3>Protecting Outdoor Living Spaces</h3>
+                    <p>Complete water management solutions</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="trabm2.jpeg" alt="Modern home integration">
+                    <div class="overlay">
+                        <div class="overlay-icon">✨</div>
+                    </div>
+                </div>
+                <div class="caption">
+                    <h3>Seamless Integration for Modern Homes</h3>
+                    <p>Perfect blend of form and function</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="trab1.jpg" alt="Modern home integration">
+                    <div class="overlay">
+                        <div class="overlay-icon">✨</div>
+                    </div>
+                </div>
+                <div class="caption">
+                    <h3>Seamless Integration for Modern Homes</h3>
+                    <p>Perfect blend of form and function</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="tragm1.jpeg" alt="New construction">
+                    <div class="overlay">
+                        <div class="overlay-icon">🏗️</div>
+                    </div>
+                </div>
+                <div class="caption">
+                    <h3>Crisp Lines on New Construction</h3>
+                    <p>Precision installation from the start</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="trab4.jpg" alt="New construction">
+                    <div class="overlay">
+                        <div class="overlay-icon">🏗️</div>
+                    </div>
+                </div>
+                <div class="caption">
+                    <h3>Crisp Lines on New Const</h3>
+                    <p>Precision installation from the start</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="trabajo9.jpg" alt="Patio construction">
+                    <div class="overlay">
+                        <div class="overlay-icon">⚡</div>
+                    </div>
+                </div>
+                <div class="caption">
+                    <h3>Durable Solutions for Patios & Homes</h3>
+                    <p>Built to withstand any weather</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="trabajo13.jpg" alt="Grey stucco enhancement">
+                    <div class="overlay">
+                        <div class="overlay-icon">🎨</div>
+                    </div>
+                </div>
+                <div class="caption">
+                    <h3>Stucco Home Gutter Enhancement</h3>
+                    <p>Enhancing architectural beauty</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gutter-types">
+        <div class="section-header">
+            <h2>Premium Gutter Systems We Install</h2>
+            <p>Explore our full range of high-performance gutter solutions designed for lasting durability and clean, attractive finish</p>
+        </div>
+
+        <div class="types-grid">
+            <div class="type-card">
+                <div class="type-img">
+                    <img src="k-style.jpg" alt="K-Style Gutters">
+                </div>
+                <div class="type-content">
                     <h4>K-Style Gutters</h4>
-                    <p>Our most popular and versatile option, K-style gutters combine functionality with a decorative front that simulates crown molding. They offer excellent water-handling capacity and suit a wide range of home styles.</p>
-                    <ul class="features-list">
+                    <p>Most popular option combining functionality with decorative crown molding appearance</p>
+                    <ul>
                         <li>Elegant crown molding</li>
                         <li>High water capacity</li>
-                        <li>Compatible with most home</li>
-                        <li>Low-maintenance solution</li>
+                        <li>Compatible with most homes</li>
+                        <li>Low-maintenance solution</li>
                     </ul>
-                    <div class="price-range">Most Popular Choice</div>
+                    <span class="badge">Most Popular Choice</span>
                 </div>
+            </div>
 
-                <div class="gutter-type-item">
-                    <div class="gutter-image-container">
-                        <img src="aluminiun half.jpg" alt="Half-Round Gutters" class="gutter-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="placeholder-text" style="display: none;">
-                            Half-Round Gutter Image<br>
-                            <small>Reemplazar con: images/half-round-gutter.jpg</small>
-                        </div>
-                        <div class="image-overlay"></div>
-                    </div>
+            <div class="type-card">
+                <div class="type-img">
+                    <img src="aluminiun half.jpg" alt="Half-Round Gutters">
+                </div>
+                <div class="type-content">
                     <h4>Half-Round Gutters</h4>
-                    <p>Classic semi-circular design perfect for historic homes, traditional architecture, and properties seeking an elegant, timeless aesthetic with reliable performance.</p>
-                    <ul class="features-list">
+                    <p>Classic semi-circular design perfect for historic homes and traditional architecture</p>
+                    <ul>
                         <li>Historic authenticity</li>
                         <li>Self-cleaning design</li>
                         <li>Elegant appearance</li>
                         <li>Corrosion resistant</li>
                     </ul>
-                    <div class="price-range">Premium Traditional</div>
+                    <span class="badge">Premium Traditional</span>
                 </div>
+            </div>
 
-                <div class="gutter-type-item">
-                    <div class="gutter-image-container">
-                        <img src="Square-line-Gutter.jpg" alt="Square Line Gutters" class="gutter-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="placeholder-text" style="display: none;">
-                            Square Line Gutter Image<br>
-                            <small>Reemplazar con: images/square-line-gutter.jpg</small>
-                        </div>
-                        <div class="image-overlay"></div>
-                    </div>
+            <div class="type-card">
+                <div class="type-img">
+                    <img src="Square-line-Gutter.jpg" alt="Square Line Gutters">
+                </div>
+                <div class="type-content">
                     <h4>Square Line Gutters</h4>
-                    <p>Contemporary square profile designed for modern architecture and commercial applications, offering Cleanliness  and superior water management for larger roofing areas.</p>
-                    <ul class="features-list">
+                    <p>Contemporary square profile for modern architecture and commercial applications</p>
+                    <ul>
                         <li>Modern aesthetic</li>
                         <li>High capacity</li>
                         <li>Commercial grade</li>
                         <li>Custom sizing available</li>
                     </ul>
-                    <div class="price-range">Modern Commercial</div>
+                    <span class="badge">Modern Commercial</span>
                 </div>
+            </div>
 
-                <div class="gutter-type-item">
-                    <div class="gutter-image-container">
-                        <img src="conductor-head.jpg" alt="Conductor Head Systems" class="gutter-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="placeholder-text" style="display: none;">
-                            Conductor Head Image<br>
-                            <small>Reemplazar con: images/conductor-head.jpg</small>
-                        </div>
-                        <div class="image-overlay"></div>
-                    </div>
+            <div class="type-card">
+                <div class="type-img">
+                    <img src="conductor-head.jpg" alt="Conductor Heads">
+                </div>
+                <div class="type-content">
                     <h4>Conductor Head Gutters</h4>
-                    <p>These decorative components enhance your gutter system’s look while improving performance. Designed to manage water from multiple roof sections, conductor heads direct flow efficiently into a single downspout, preventing overflow and adding architectural detail.</p>
-                    <ul class="features-list">
+                    <p>Decorative components that enhance look while improving water management performance</p>
+                    <ul>
                         <li>Distinctive architectural accent</li>
                         <li>Handles multiple water inlets</li>
-                        <li>Custom fabricated to fit your system</li>
-                        <li>Built with premium, long-lasting materials</li>
+                        <li>Custom fabricated</li>
+                        <li>Premium materials</li>
                     </ul>
-                    <div class="price-range">Luxury Upgrade</div>
+                    <span class="badge">Luxury Upgrade</span>
                 </div>
+            </div>
 
-                <div class="gutter-type-item">
-                    <div class="gutter-image-container">
-                        <img src="Guttering-Profiles.jpg" alt="Premium Materials" class="gutter-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="placeholder-text" style="display: none;">
-                            Premium Materials Image<br>
-                            <small>Reemplazar con: images/premium-materials.jpg</small>
-                        </div>
-                        <div class="image-overlay"></div>
-                    </div>
+            <div class="type-card">
+                <div class="type-img">
+                    <img src="Guttering-Profiles.jpg" alt="Premium Materials">
+                </div>
+                <div class="type-content">
                     <h4>Premium Materials</h4>
-                    <p>We offer a selection of high-quality materials—each with distinct advantages to match your performance needs and aesthetic preferences. Our seamless gutter construction ensures a precise fit and minimizes the risk of leaks.</p>
-                    <ul class="features-list">
-                        <li>Aluminum – Lightweight, rust-resistant, and low maintenance</li>
-                        <li>Copper – Elegant appearance with unmatched durability</li>
-                        <li>Steel – Extremely strong and ideal for high-demand environments</li>
-                        <li>Seamless Construction – Custom-fitted on-site to reduce joints and potential leaks</li>
+                    <p>Selection of high-quality materials with distinct advantages for your needs</p>
+                    <ul>
+                        <li>Aluminum - Lightweight & rust-resistant</li>
+                        <li>Copper - Elegant with durability</li>
+                        <li>Steel - Extremely strong</li>
+                        <li>Seamless construction</li>
                     </ul>
-                    <div class="price-range">Material Options</div>
+                    <span class="badge">Material Options</span>
                 </div>
             </div>
         </div>
     </section>
-    </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section footer-logo-area">
-                <a href="index.html"><img src="icono.jpg" alt="N&K Gutter Logo" class="footer-logo"></a>
-                <p>N&K Gutter</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p>Phone: <a href="">(561) 268-6290</a></p>
-                <p>Email: <a href="mailto:nykseamlessgutter@gmail.com">nykseamlessgutter@gmail.com</a></p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Experience the N&K Gutter Difference?</h2>
+            <p>Protect your home with a team that truly cares. At N&K Gutter, we're committed to delivering top-quality gutter solutions and the outstanding service you deserve—every step of the way. Built to last. Backed by care!</p>
+            <div class="btn-group">
+                <a href="index.html#quoteFormSection" class="btn btn-primary">Get Your FREE Estimate Today</a>
+                <a href="tel:+15612686290" class="btn btn-secondary">Call Us: (561) 268-6290</a>
             </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 N&K seamless gutter LLC</p>
-        </div>
-    </footer>
-    <script src="script.js" type="module"></script>
+    </section>
+
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // 3D tilt effect on gallery items
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('mousemove', (e) => {
+                const rect = item.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-20px) scale(1.03)`;
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = '';
+            });
+        });
+    </script>
 </body>
 </html>

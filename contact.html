@@ -1,105 +1,594 @@
-
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - N&K Gutter</title>
     <link rel="icon" href="icono.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script type="module">
-    import gsap from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-    import ScrollTrigger from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-    import ScrollToPlugin from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js';
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF7A00;
+            --secondary: #0A2E5C;
+            --accent: #FFC107;
+            --dark: #0f172a;
+        }
 
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    import 'script.js';
-</script>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s;
+        }
+
+        .header.scrolled {
+            background: rgba(15,23,42,0.95);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { 
+            height: 60px; 
+            transition: all 0.5s;
+            filter: drop-shadow(0 0 20px rgba(255,122,0,0.5));
+        }
+        
+        .logo:hover { 
+            transform: rotateY(360deg) scale(1.1);
+            filter: drop-shadow(0 0 30px var(--primary));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: translateX(-50%);
+            transition: width 0.4s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::before { width: 100%; }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255,122,0,0.4);
+            transition: all 0.4s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,122,0,0.6);
+        }
+
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(255,122,0,0.2), transparent 70%);
+            top: -250px;
+            right: -250px;
+            animation: pulse 8s infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,193,7,0.15), transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation: pulse 6s infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.3) rotate(45deg); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, white 0%, var(--primary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .contact-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #1e293b, #0f172a);
+        }
+
+        .contact-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            perspective: 1000px;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent 0deg,
+                var(--primary) 90deg,
+                transparent 180deg
+            );
+            opacity: 0;
+            transition: all 0.6s;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .contact-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-20px) rotateX(5deg) scale(1.03);
+            border-color: var(--primary);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(255,122,0,0.3);
+        }
+
+        .contact-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 15px 40px rgba(255,122,0,0.4);
+            transition: all 0.5s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: rotateY(360deg) scale(1.15);
+            box-shadow: 0 20px 60px rgba(255,122,0,0.6);
+        }
+
+        .contact-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-card p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(255,122,0,0.3);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,122,0,0.5);
+        }
+
+        .contact-btn:hover::before {
+            left: 100%;
+        }
+
+        .contact-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: none;
+        }
+
+        .contact-btn.secondary:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: var(--primary);
+        }
+
+        .info-section {
+            padding: 6rem 2rem;
+            background: #0f172a;
+            position: relative;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255,122,0,0.08), transparent 60%);
+        }
+
+        .info-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .info-container h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, white, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-item {
+            padding: 2rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s;
+        }
+
+        .info-item:hover {
+            background: rgba(255,122,0,0.1);
+            border-color: var(--primary);
+            transform: translateY(-10px);
+        }
+
+        .info-item h4 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .info-item p {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .service-area {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255,122,0,0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255,122,0,0.2);
+        }
+
+        .service-area h4 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .service-area p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .map-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #1e293b, #0f172a);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .map-container h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, white, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 3rem;
+        }
+
+        .map-placeholder {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .map-placeholder p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .contact-grid, .info-grid { grid-template-columns: 1fr; }
+            .hero { padding: 6rem 1.5rem 3rem; }
+            .info-container { padding: 3rem 2rem; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo-link"><img src="icono.jpg" alt="NK & Gutter Logo" class="logo"></a>
-            <div class="nav-links">
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <a href="" class="phone-button cta-button-nav">Call Now: (561) 268-6290</a>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html"><img src="icono.jpg" alt="N&K Gutter" class="logo"></a>
+            <ul class="nav-links">
+                <li><a href="services.html">Services</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="tel:+15612686290" class="cta-btn">Call: (561) 268-6290</a>
         </nav>
     </header>
 
-    <main class="page-main-content">
-        <section id="contact-content">
-            <h2>Ready to Protect Your Investment?</h2>
-            <p class="section-subtext">Don't wait for gutter problems to cause costly damage. Contact us today for a free, no-obligation estimate or to discuss your gutter needs.</p>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Ready to Protect Your Investment?</h1>
+            <p>Don't wait for gutter problems to cause costly damage. Contact us today for a free, no-obligation estimate or to discuss your gutter needs.</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h3>Call Us Directly</h3>
+                <p>Speak to one of our friendly experts now</p>
+                <a href="tel:+15612686290" class="contact-btn">Call: (561) 268-6290</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">✉️</div>
+                <h3>Send Us an Email</h3>
+                <p>We'll get back to you as soon as possible</p>
+                <a href="mailto:nykseamlessgutter@gmail.com" class="contact-btn secondary">nykseamlessgutter@gmail.com</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">📝</div>
+                <h3>Get a Free Quote</h3>
+                <p>Fill out our quick form on the homepage</p>
+                <a href="index.html#quoteFormSection" class="contact-btn">Request Free Estimate</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="info-container">
+            <h3>Business Information</h3>
             
-            <div class="contact-page-options-container">
-                <div class="contact-option-card">
-                    <img src="icon_call_direct.png" alt="Call us icon" class="modern-icon">
-                    <h3>Call Us Directly</h3>
-                    <p>Speak to one of our friendly experts now.</p>
-                    <a href="" class="contact-button cta-button large-button">Call: (561) 268-6290</a>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>📅 Business Hours</h4>
+                    <p><strong>Monday - Friday</strong><br>7:00 AM - 7:00 PM</p>
+                    <p><strong>Saturday</strong><br>7:00 AM - 7:00 PM</p>
+                    <p><strong>Sunday</strong><br>Closed</p>
                 </div>
 
-                <div class="contact-option-card">
-                    <img src="icon_email_contact.png" alt="Email us icon" class="modern-icon">
-                    <h3>Send Us an Email</h3>
-                    <p>We'll get back to you as soon as possible.</p>
-                    <a href="mailto:nykseamlessgutter@gmail.com" class="contact-button cta-button secondary large-button">Email: nykseamlessgutter@gmail.com</a>
+                <div class="info-item">
+                    <h4>📍 Location</h4>
+                    <p>5340 Elmhurst Rd G<br>West Palm Beach, FL 33417</p>
                 </div>
-                
-                <div class="contact-option-card">
-                     <img src="icon_scheduling_estimate.png" alt="Free quote icon" class="modern-icon">
-                    <h3>Get a Free Quote</h3>
-                    <p>Fill out our quick form on the homepage.</p>
-                    <a href="index.html#quoteFormSection" class="contact-button cta-button large-button">Request Free Estimate</a>
+
+                <div class="info-item">
+                    <h4>💼 Services</h4>
+                    <p>Professional Gutter<br>Installation & Repair</p>
+                    <p>Licensed & Insured</p>
                 </div>
             </div>
 
-            <div class="business-info">
-                <h3>Business Hours</h3>
-                <p>Monday - Friday: 7:00 AM - 7:00 PM</p>
-                <p>Saturday: 7:00 AM - 7:00 PM</p>
-                <p>Sunday: Closed</p>
-                <p>Location: 5340 elmhurst rd g west palm beach fl 33417</p>
-                
-                <h3>Service Area</h3>
-                <p>Proudly Serving Palm Beach County, Broward County, Miami-Dade County and Nearby Communities
-Contact us to confirm service availability in your area—we’re happy to help!</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section footer-logo-area">
-                <a href="index.html"><img src="icono.jpg" alt="NK & Gutter Logo" class="footer-logo"></a>
-                <p>N&K Gutter</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p>Phone: <a href="">(561) 268-6290</a></p>
-                <p>Email: <a href="mailto:nykseamlessgutter@gmail.com">nykseamlessgutter@gmail.com</a></p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+            <div class="service-area">
+                <h4>🗺️ Service Area</h4>
+                <p>Proudly Serving Palm Beach County, Broward County, Miami-Dade County and Nearby Communities</p>
+                <p style="margin-top: 1rem; font-size: 0.95rem;">Contact us to confirm service availability in your area—we're happy to help!</p>
             </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 N&K seamless gutter LLC</p>
-        </div>
-    </footer>
+    </section>
 
-    
+    <section class="map-section">
+        <div class="map-container">
+            <h2>Find Us Here</h2>
+            <div class="map-placeholder">
+                <p>📍 We're located in West Palm Beach, Florida</p>
+                <p>Serving communities throughout South Florida with premium gutter solutions</p>
+                <span class="location-badge">5340 Elmhurst Rd G, West Palm Beach, FL 33417</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        // 3D tilt effect on contact cards
+        document.querySelectorAll('.contact-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 15;
+                const rotateY = (centerX - x) / 15;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-20px) scale(1.03)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // Floating animation for info items
+        const infoItems = document.querySelectorAll('.info-item');
+        infoItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.2}s`;
+        });
+    </script>
 </body>
 </html>
