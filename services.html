@@ -96,14 +96,17 @@
         }
 
         .hero {
-            min-height: 70vh;
+            min-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)), url('nykservie.PNG');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             position: relative;
             padding: 8rem 2rem 4rem;
-            text-align: center;
+            overflow: hidden;
         }
 
         .hero::before {
@@ -302,6 +305,7 @@
         }
 
         .btn {
+            margin-top: 20px;
             padding: 1.2rem 3rem;
             border-radius: 50px;
             font-size: 1.1rem;
@@ -312,6 +316,7 @@
         }
 
         .btn-primary {
+            margin-right: 20px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
             box-shadow: 0 15px 35px rgba(255,122,0,0.4);
@@ -361,6 +366,9 @@
         <div class="hero-content">
             <h1>Premium Gutter Services</h1>
             <p>Complete customized solutions to protect your property with maximum efficiency and style</p>
+            <div>
+                    <a href="index.html#quoteFormSection" class="btn btn-primary">Request FREE Quote</a>
+                    <a href="projects.html" class="btn btn-secondary">View Projects</a>
         </div>
     </section>
 
@@ -368,6 +376,7 @@
         <div class="intro">
             <h2>Our Complete Service Solutions</h2>
             <p>Expert installation, repair, and maintenance backed by skilled professionals</p>
+            
         </div>
 
         <div class="grid">
