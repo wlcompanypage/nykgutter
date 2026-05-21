@@ -1,720 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - N&K Gutter</title>
-    <link rel="icon" href="icono.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #FF7A00;
-            --secondary: #0A2E5C;
-            --accent: #FFC107;
-            --dark: #0f172a;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--dark);
-            color: white;
-            overflow-x: hidden;
-        }
-
-        .header {
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(20px);
-            background: rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.5s;
-        }
-
-        .header.scrolled {
-            background: rgba(15,23,42,0.95);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-
-        .nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo { 
-            height: 60px; 
-            transition: all 0.5s;
-            filter: drop-shadow(0 0 20px rgba(255,122,0,0.5));
-        }
-        
-        .logo:hover { 
-            transform: rotateY(360deg) scale(1.1);
-            filter: drop-shadow(0 0 30px var(--primary));
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            position: relative;
-            padding: 0.5rem 1rem;
-            transition: all 0.3s;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: translateX(-50%);
-            transition: width 0.4s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links a:hover::before { width: 100%; }
-
-        .cta-btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            box-shadow: 0 10px 30px rgba(255,122,0,0.4);
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s;
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255,122,0,0.6);
-        }
-
-        .cta-btn:hover::before {
-            left: 100%;
-        }
-
-        .hero {
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)), url('trabajo1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-            padding: 8rem 2rem 4rem;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255,122,0,0.2), transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(255,193,7,0.15), transparent 50%);
-            animation: pulse 8s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            background: rgba(10,46,92,0.3);
-            backdrop-filter: blur(20px);
-            padding: 3rem;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, white 0%, var(--primary) 50%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-            animation: fadeIn 1s ease;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: rgba(255,255,255,0.9);
-            line-height: 1.8;
-            animation: fadeIn 1s ease 0.2s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .story-section {
-            padding: 6rem 2rem;
-            background: linear-gradient(180deg, #1e293b, #0f172a);
-            position: relative;
-        }
-
-        .story-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .story-text h2 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, white, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 2rem;
-        }
-
-        .story-text p {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.9;
-            margin-bottom: 1.5rem;
-        }
-
-        .story-text strong {
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .story-image {
-            position: relative;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-            transition: all 0.6s;
-        }
-
-        .story-image::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,122,0,0.2), rgba(255,193,7,0.2));
-            opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 1;
-        }
-
-        .story-image:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 40px 100px rgba(255,122,0,0.4);
-        }
-
-        .story-image:hover::before {
-            opacity: 1;
-        }
-
-        .story-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s;
-        }
-
-        .story-image:hover img {
-            transform: scale(1.1);
-        }
-
-        .values-section {
-            padding: 6rem 2rem;
-            background: #0f172a;
-            position: relative;
-        }
-
-        .values-section::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 30% 50%, rgba(255,122,0,0.05), transparent 50%),
-                radial-gradient(circle at 70% 50%, rgba(255,193,7,0.05), transparent 50%);
-        }
-
-        .values-header {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto 4rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .values-header h2 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, white, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-        }
-
-        .values-header p {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-
-        .values-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 3rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .value-card {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 3rem 2.5rem;
-            text-align: center;
-            transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .value-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                transparent 0deg,
-                var(--primary) 90deg,
-                transparent 180deg
-            );
-            opacity: 0;
-            transition: all 0.6s;
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            100% { transform: rotate(360deg); }
-        }
-
-        .value-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .value-card:hover {
-            transform: translateY(-20px) scale(1.03);
-            border-color: var(--primary);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(255,122,0,0.3);
-        }
-
-        .value-icon {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            box-shadow: 0 15px 40px rgba(255,122,0,0.4);
-            transition: all 0.5s;
-            position: relative;
-            z-index: 2;
-        }
-
-        .value-card:hover .value-icon {
-            transform: rotateY(360deg) scale(1.15);
-            box-shadow: 0 20px 60px rgba(255,122,0,0.6);
-        }
-
-        .value-card h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .value-card p {
-            color: rgba(255,255,255,0.75);
-            line-height: 1.8;
-            font-size: 1.05rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .gallery-section {
-            padding: 6rem 2rem;
-            background: linear-gradient(180deg, #1e293b, #0f172a);
-        }
-
-        .gallery-header {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto 4rem;
-        }
-
-        .gallery-header h2 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, white, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-        }
-
-        .gallery-header p {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.8;
-        }
-
-        .gallery-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 25px;
-            overflow: hidden;
-            aspect-ratio: 16/10;
-            cursor: pointer;
-            transition: all 0.6s;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 30px 80px rgba(255,122,0,0.4);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.15) rotate(2deg);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,122,0,0.9), rgba(255,193,7,0.9));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.5s;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        .gallery-caption {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-align: center;
-            padding: 2rem;
-            transform: scale(0);
-            transition: transform 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);
-        }
-
-        .gallery-item:hover .gallery-caption {
-            transform: scale(1);
-        }
-
-        .cta-section {
-            padding: 6rem 2rem;
-            background: #0f172a;
-            text-align: center;
-            position: relative;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(255,122,0,0.1), transparent 70%);
-        }
-
-        .cta-content {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .cta-content h2 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 800;
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-content p {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 3rem;
-            line-height: 1.8;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.4s;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            box-shadow: 0 15px 35px rgba(255,122,0,0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(255,122,0,0.6);
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .story-container { grid-template-columns: 1fr; }
-            .hero { padding: 6rem 1.5rem 3rem; }
-            .hero-content { padding: 2rem; }
-            .values-grid, .gallery-grid { grid-template-columns: 1fr; }
-            .btn-group { flex-direction: column; align-items: center; }
-            .btn { width: 100%; max-width: 300px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About N&K Gutter — Building Quality Since 2017</title>
+<link rel="icon" href="icono.jpg" type="image/jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --o: #FF7A00;
+  --gold: #FFC107;
+  --dark: #080f1e;
+  --dark2: #0d1829;
+  --dark3: #111f36;
+  --white: #ffffff;
+  --muted: rgba(255,255,255,0.55);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+.cursor{position:fixed;width:12px;height:12px;background:var(--o);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+.cring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(255,122,0,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+
+/* GRAIN */
+.grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;animation:grainA .35s steps(1) infinite}
+@keyframes grainA{0%{background-position:0 0}20%{background-position:-50px 30px}40%{background-position:70px -20px}60%{background-position:-30px 70px}80%{background-position:50px -50px}}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;width:100%;z-index:800;transition:all .5s}
+.hdr-inner{max-width:1500px;margin:0 auto;padding:1.3rem 3rem;display:flex;align-items:center;backdrop-filter:blur(18px);background:rgba(8,15,30,.28);border-bottom:1px solid rgba(255,255,255,.05);transition:all .4s}
+.hdr.scrolled .hdr-inner{background:rgba(8,15,30,.97);border-color:rgba(255,122,0,.08);padding:.9rem 3rem}
+.logo{flex-shrink:0;margin-right:auto}
+.logo img{height:50px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,122,0,.4));transition:all .4s}
+.logo img:hover{filter:drop-shadow(0 0 22px var(--o));transform:scale(1.05)}
+.nav{display:flex;gap:.2rem;list-style:none;margin:0 2rem}
+.nav a{display:block;color:rgba(255,255,255,.78);text-decoration:none;font-size:.9rem;font-weight:600;letter-spacing:.05em;padding:.5rem 1.2rem;border-radius:30px;transition:all .3s;position:relative}
+.nav a::after{content:'';position:absolute;bottom:6px;left:50%;width:0;height:2px;background:var(--o);transform:translateX(-50%);transition:width .3s;border-radius:2px}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav a:hover::after{width:55%}
+.hdr-cta{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--o),#ff9d00);color:#fff;text-decoration:none;font-size:.88rem;font-weight:700;letter-spacing:.04em;padding:.7rem 1.7rem;border-radius:50px;box-shadow:0 6px 24px rgba(255,122,0,.35);transition:all .35s;white-space:nowrap;position:relative;overflow:hidden}
+.hdr-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-100%);transition:.5s}
+.hdr-cta:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 10px 36px rgba(255,122,0,.55)}
+.hdr-cta:hover::before{transform:translateX(100%)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:8rem}
+.hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(110deg,rgba(8,15,30,.96),rgba(8,15,30,.85)),url('trabajo1.jpg') center/cover;opacity:.9}
+.hero-ov{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 55% 75% at 5% 55%,rgba(255,122,0,.08),transparent 55%),radial-gradient(ellipse 40% 55% at 95% 15%,rgba(10,46,92,.25),transparent 65%)}
+.hero-grain{position:absolute;inset:0;z-index:2;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:220px;pointer-events:none}
+.hero-line{position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--o) 30%,var(--gold) 70%,transparent);z-index:5;opacity:.7}
+.hero-body{position:relative;z-index:10;max-width:1200px;width:100%;margin:0 auto;padding:0 3rem 5rem;display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero-content{animation:fUp .9s cubic-bezier(.22,1,.36,1) both;max-width:820px}
+@keyframes fUp{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:translateY(0)}}
+.pill{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,122,0,.1);border:1px solid rgba(255,122,0,.28);border-radius:50px;padding:.38rem 1rem;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--o);margin-bottom:1.5rem}
+.pdot{width:6px;height:6px;border-radius:50%;background:var(--o);animation:blink 1.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,8vw,7.5rem);line-height:.95;letter-spacing:.01em;margin-bottom:1.5rem}
+.ht-w{color:var(--white)}
+.ht-g{background:linear-gradient(110deg,var(--o) 0%,var(--gold) 50%,#fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200%;animation:gS 6s ease infinite alternate}
+@keyframes gS{from{background-position:0%}to{background-position:100%}}
+.hero-sub{font-size:clamp(.95rem,1.5vw,1.1rem);color:rgba(255,255,255,.68);line-height:1.9;margin-bottom:2.5rem}
+.btn-p{display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,var(--o),#ff9d00);color:#fff;font-size:.97rem;font-weight:700;letter-spacing:.03em;padding:1rem 2.4rem;border-radius:50px;border:none;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 10px 32px rgba(255,122,0,.38);transition:transform .35s,box-shadow .35s;text-decoration:none}
+.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:translateX(-120%);transition:.5s}
+.btn-p:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 16px 46px rgba(255,122,0,.58)}
+.btn-p:hover::after{transform:translateX(120%)}
+.btn-g{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.06);color:#fff;font-size:.97rem;font-weight:600;padding:1rem 2.2rem;border-radius:50px;border:1px solid rgba(255,255,255,.16);cursor:pointer;backdrop-filter:blur(10px);transition:all .35s;text-decoration:none}
+.btn-g:hover{background:rgba(255,122,0,.1);border-color:var(--o);transform:translateY(-4px)}
+
+/* SECTION UTILS */
+.sec{position:relative;overflow:hidden}
+.sec-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--o);margin-bottom:1.1rem}
+.sec-label::before{content:'';display:block;width:28px;height:1.5px;background:var(--o);border-radius:2px}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,5vw,4.2rem);line-height:1;background:linear-gradient(135deg,var(--white) 30%,rgba(255,255,255,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem}
+.sec-p{font-size:1.05rem;color:var(--muted);line-height:1.9;max-width:560px}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-40px);transition:opacity .8s ease,transform .8s ease}
+.reveal-l.in{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal-r.in{opacity:1;transform:translateX(0)}
+
+/* STORY SECTION */
+.story-sec{padding:8rem 3rem;background:var(--dark2)}
+.story-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:6rem;align-items:center}
+.story-img{position:relative;height:520px;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);transition:all .8s}
+.story-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.story-img:hover img{transform:scale(1.06)}
+.story-txt h2{margin-bottom:1.5rem}
+.story-txt p{font-size:1rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem}
+.story-txt strong{color:var(--o);font-weight:700}
+
+/* VALUES GRID */
+.values-sec{padding:8rem 3rem;background:var(--dark3)}
+.values-inner{max-width:1400px;margin:0 auto}
+.values-hd{text-align:center;margin-bottom:4rem}
+.values-hd .sec-label{justify-content:center}
+.values-hd .sec-label::before{display:none}
+.val-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2.5rem}
+.val-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:2.8rem 2.4rem;transition:all .4s;cursor:default;position:relative}
+.val-card:hover{border-color:rgba(255,122,0,.25);background:rgba(255,122,0,.04);transform:translateY(-6px)}
+.val-ico{width:50px;height:50px;background:rgba(255,122,0,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem}
+.val-card h3{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.02em;margin-bottom:.6rem;color:var(--white)}
+.val-card p{font-size:.9rem;color:var(--muted);line-height:1.6}
+
+/* TIMELINE / JOURNEY */
+.journey-sec{padding:8rem 3rem;background:var(--dark)}
+.journey-inner{max-width:1200px;margin:0 auto}
+.journey-hd{text-align:center;margin-bottom:5rem}
+.journey-hd .sec-label{justify-content:center}
+.journey-hd .sec-label::before{display:none}
+.journey-track{display:flex;flex-direction:column;gap:3rem;position:relative}
+.journey-track::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--o),rgba(255,122,0,.1));transform:translateX(-50%);z-index:0}
+.j-item{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.j-item:nth-child(even) .j-content{grid-column:2}
+.j-item:nth-child(even) .j-dot{grid-column:1;justify-self:end}
+.j-item:nth-child(odd) .j-content{grid-column:1;text-align:right}
+.j-item:nth-child(odd) .j-dot{grid-column:2;justify-self:start}
+.j-dot{width:24px;height:24px;background:var(--o);border-radius:50%;box-shadow:0 0 24px rgba(255,122,0,.5);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--dark);font-weight:700}
+.j-content h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;margin-bottom:.5rem;color:var(--white)}
+.j-content p{font-size:.95rem;color:var(--muted);line-height:1.7}
+
+/* GALLERY */
+.gallery-sec{padding:8rem 3rem;background:var(--dark2)}
+.gallery-inner{max-width:1400px;margin:0 auto}
+.gallery-hd{text-align:center;margin-bottom:4rem}
+.gallery-hd .sec-label{justify-content:center}
+.gallery-hd .sec-label::before{display:none}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.gi{position:relative;height:380px;border-radius:18px;overflow:hidden;cursor:pointer}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.gi:hover img{transform:scale(1.08)}
+.gi-ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(8,15,30,.92) 100%);display:flex;align-items:flex-end;padding:1.5rem;opacity:0;transition:opacity .4s}
+.gi:hover .gi-ov{opacity:1}
+.gi-t{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.05em;color:var(--white)}
+.gi-s{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:.2rem;font-weight:500}
+
+/* CTA */
+.cta-sec{padding:7rem 3rem;background:linear-gradient(135deg,var(--dark2),var(--dark3));text-align:center;position:relative;overflow:hidden}
+.cta-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(255,122,0,.1),transparent 70%);pointer-events:none}
+.cta-inner{max-width:800px;margin:0 auto;position:relative;z-index:2}
+.cta-inner .sec-h{font-size:clamp(2.8rem,6vw,5rem);text-align:center;margin-bottom:1.2rem}
+.cta-inner .sec-p{text-align:center;margin:0 auto 3rem;font-size:1.1rem;max-width:560px}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+.footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:3rem}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.footer-inner img{height:40px;object-fit:contain;opacity:.7;filter:drop-shadow(0 0 8px rgba(255,122,0,.3))}
+.f-links{display:flex;gap:2rem;list-style:none}
+.f-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .3s}
+.f-links a:hover{color:var(--o)}
+.f-copy{font-size:.8rem;color:rgba(255,255,255,.25)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .story-inner{grid-template-columns:1fr}
+  .story-img{height:400px;margin-bottom:2rem}
+  .val-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .hdr-inner{padding:1rem 1.5rem}
+  .nav,.hdr-cta{display:none}
+  .hamburger{display:flex}
+  .hero-body{padding:0 1.5rem 4rem}
+  .hero-title{font-size:clamp(3rem,13vw,5rem)}
+  .story-sec,.values-sec,.journey-sec,.gallery-sec,.cta-sec{padding:5rem 1.5rem}
+  .journey-track::before{left:24px}
+  .j-item{grid-template-columns:1fr;gap:2rem}
+  .j-item .j-content,.j-item .j-dot{grid-column:auto;text-align:left;justify-self:auto}
+  .gallery-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+  .f-links{justify-content:center;flex-wrap:wrap}
+  body{cursor:auto}
+  .cursor,.cring{display:none}
+}
+</style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <a href="index.html"><img src="icono.jpg" alt="N&K Gutter" class="logo"></a>
-            <ul class="nav-links">
-                <li><a href="services.html">Services</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <a href="tel:+15612686290" class="cta-btn">Call: (561) 268-6290</a>
-        </nav>
-    </header>
+<div class="cursor" id="cursor"></div>
+<div class="cring" id="cring"></div>
+<div class="grain"></div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>About N&K Gutter</h1>
-            <p>Your Trusted Partner for Premium Gutter Solutions. Protecting Homes & Businesses with Excellence for Over 10 Years.</p>
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <div class="hdr-inner">
+    <div class="logo"><a href="index.html"><img src="icono.jpg" alt="N&K Gutter"></a></div>
+    <ul class="nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="#" class="hdr-cta">📞 (561) 268-6290</a>
+    <div class="hamburger" id="ham"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-body">
+    <div class="hero-content">
+      <div class="pill"><span class="pdot"></span>More Than a Gutter Company</div>
+      <h1 class="hero-title">
+        <span class="ht-w">Built on</span><br>
+        <span class="ht-g">Trust &</span><br>
+        <span class="ht-w">Excellence</span>
+      </h1>
+      <p class="hero-sub">N&K Seamless Gutter LLC: A decade of protecting South Florida homes with premium solutions and unwavering commitment to quality.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem">
+        <button class="btn-p" onclick="scrollToSection('story')">Our Story ↗</button>
+        <a href="index.html#quoteFormSection" class="btn-g">Get FREE Estimate →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-sec sec" id="story">
+  <div class="story-inner">
+    <div class="reveal-l">
+      <div class="sec-label">Our Journey</div>
+      <h2 class="sec-h">A Family-Owned Promise</h2>
+      <div class="story-txt">
+        <p>N&K Gutter is more than just a gutter company — we're a <strong>family-owned business</strong> built on trust, integrity, and an unwavering commitment to our customers. With over <strong>5+ years of dedicated service</strong>, we've grown by treating every home and business as if it were our own.</p>
+        <p>We believe in providing superior gutter systems backed by peace of mind. That's why we're <strong>fully licensed and insured</strong>, committed to transparent communication, and offering competitive, fair pricing. Every project gets our full attention — from the first call to the final inspection.</p>
+        <p style="margin-top:1.5rem;color:var(--o);font-weight:600">The N&K Promise: Quality Craftsmanship. Reliable Service. Complete Customer Satisfaction.</p>
+      </div>
+    </div>
+    <div class="story-img reveal-r">
+      <img src="icono.jpg" alt="N&K Gutter Installation">
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-sec sec">
+  <div class="values-inner">
+    <div class="values-hd reveal">
+      <div class="sec-label">What We Stand For</div>
+      <h2 class="sec-h">Core Values That<br>Drive Everything</h2>
+      <p class="sec-p" style="margin:0 auto;text-align:center">Our commitment goes beyond installation — it's about delivering excellence in every interaction.</p>
+    </div>
+    <div class="val-grid">
+      <div class="val-card reveal" style="transition-delay:0s">
+        <div class="val-ico">💎</div>
+        <h3>Uncompromising Quality</h3>
+        <p>Premium-grade materials and cutting-edge techniques ensure your gutter system is durable, efficient, and aesthetically perfect. Meticulously crafted to last.</p>
+      </div>
+      <div class="val-card reveal" style="transition-delay:.08s">
+        <div class="val-ico">🤝</div>
+        <h3>Customer-First Service</h3>
+        <p>Your satisfaction is paramount. We deliver outstanding service, clear communication, and personalized solutions tailored to your needs and budget.</p>
+      </div>
+      <div class="val-card reveal" style="transition-delay:.12s">
+        <div class="val-ico">⚡</div>
+        <h3>Expert Precision</h3>
+        <p>Every project benefits from our experienced team's meticulous attention to detail, upholding highest standards and local compliance.</p>
+      </div>
+      <div class="val-card reveal" style="transition-delay:.16s">
+        <div class="val-ico">🛡️</div>
+        <h3>Integrity & Reliability</h3>
+        <p>Fully licensed and insured. We stand behind every project with confidence, clear communication, and the support you deserve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY TIMELINE -->
+<section class="journey-sec sec">
+  <div class="journey-inner">
+    <div class="journey-hd reveal">
+      <div class="sec-label">Our Timeline</div>
+      <h2 class="sec-h">A 5 years of<br>Excellence</h2>
+    </div>
+    <div class="journey-track">
+      <div class="j-item reveal" style="transition-delay:0s">
+        <div class="j-content">
+          <h3>2017: The Beginning</h3>
+          <p>N&K Gutter founded on principles of quality and customer care, establishing our reputation in South Florida's gutter industry.</p>
         </div>
-    </section>
-
-    <section class="story-section">
-        <div class="story-container">
-            <div class="story-text">
-                <h2>Our Story: A Family Commitment to Quality</h2>
-                <p>N&K Gutter is more than just a gutter company; we are a <strong>family-owned and operated business</strong> built on a foundation of trust, integrity, and an unwavering commitment to our customers. With over <strong>10 years of dedicated service</strong> in the community, we've grown by treating every home and business as if it were our own, ensuring your property is protected by the best gutter solutions available.</p>
-                <p>We believe in providing not just superior gutter systems, but also peace of mind. That's why we are <strong>fully licensed and insured</strong>, committed to transparent communication from the initial consultation to project completion, and offer fair, competitive pricing. Our goal is to deliver outstanding customer service and lasting results that you can rely on.</p>
-            </div>
-            <div class="story-image">
-                <img src="icono.jpg" alt="N&K Gutter Family Business">
-            </div>
+        <div class="j-dot">2020</div>
+      </div>
+      <div class="j-item reveal" style="transition-delay:.08s">
+        <div class="j-content">
+          <h3>2020: Rapid Growth</h3>
+          <p>Expanded team and capabilities. Earned 5-star ratings across all platforms through consistent quality and customer satisfaction.</p>
         </div>
-    </section>
-
-    <section class="values-section">
-        <div class="values-header">
-            <h2>What We Stand For: The N&K Gutter Promise</h2>
-            <p>At N&K Gutter, our commitment goes beyond installation. Our core values shape every project, ensuring exceptional workmanship, reliable service, and complete customer satisfaction from start to finish.</p>
-            <p><strong>Our Promise Includes:</strong></p>
+        <div class="j-dot">2024</div>
+      </div>
+      <div class="j-item reveal" style="transition-delay:.16s">
+        <div class="j-content">
+          <h3>2024: Industry Recognition</h3>
+          <p>Surpassed 300+ completed projects. Became trusted name for seamless gutter solutions across residential and commercial properties.</p>
         </div>
-
-        <div class="values-grid">
-            <div class="value-card">
-                <div class="value-icon">💎</div>
-                <h3>Uncompromising Quality</h3>
-                <p>We use only premium-grade materials and cutting-edge techniques to ensure your gutter system is durable, efficient, and aesthetically enhances your property. Our installations are meticulously crafted to last.</p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">🤝</div>
-                <h3>Customer-Centric Service</h3>
-                <p>Your satisfaction is our ultimate goal. We pride ourselves on providing outstanding customer service, maintaining clear and consistent communication, and tailoring personalized solutions to meet your specific needs and budget.</p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">⚡</div>
-                <h3>Expert Craftsmanship & Compliance</h3>
-                <p>From simple fixes to full-system installs, every project benefits from the precision and care of our experienced team. We apply meticulous attention to detail and uphold the highest standards by following all local regulations and industry best practices.</p>
-            </div>
-
-            <div class="value-card">
-                <div class="value-icon">🛡️</div>
-                <h3>Integrity & Reliability</h3>
-                <p>We take pride in doing business the right way. As a fully licensed and insured company, we stand behind every project with confidence. From free, no-obligation estimates to clear and straightforward communication, we provide the clarity and support you need.</p>
-            </div>
+        <div class="j-dot">2026</div>
+      </div>
+      <div class="j-item reveal" style="transition-delay:.24s">
+        <div class="j-content">
+          <h3>2026: 500+ Projects</h3>
+          <p>Celebrated decade milestone with 500+ satisfied customers, 5-star rating, and recognition as South Florida's premier gutter specialists.</p>
         </div>
-    </section>
+        <div class="j-dot">2026</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section class="gallery-section">
-        <div class="gallery-header">
-            <h2>Our Work in Action</h2>
-            <p>We take immense pride in enhancing and protecting properties throughout our community. Here's a glimpse of the quality, precision, and care we bring to every project.</p>
-        </div>
+<!-- GALLERY -->
+<section class="gallery-sec sec">
+  <div class="gallery-inner">
+    <div class="gallery-hd reveal">
+      <div class="sec-label">Our Craftsmanship</div>
+      <h2 class="sec-h">Quality in<br>Every Project</h2>
+      <p class="sec-p" style="text-align:center;margin:0 auto">Showcasing the precision, care, and excellence we bring to every installation.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gi reveal" style="transition-delay:0s">
+        <img src="trab1.jpg" alt="Residential Installation">
+        <div class="gi-ov"><div><div class="gi-t">Precision Residential Install</div><div class="gi-s">Palm Beach, FL</div></div></div>
+      </div>
+      <div class="gi reveal" style="transition-delay:.08s">
+        <img src="trab2.jpg" alt="Custom System">
+        <div class="gi-ov"><div><div class="gi-t">Premium Gutter System</div><div class="gi-s">Boca Raton, FL</div></div></div>
+      </div>
+      <div class="gi reveal" style="transition-delay:.12s">
+        <img src="trab3.jpg" alt="Commercial Project">
+        <div class="gi-ov"><div><div class="gi-t">Commercial Excellence</div><div class="gi-s">Delray Beach, FL</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="trab6.jpg" alt="Florida Gutter Installation">
-                <div class="gallery-overlay">
-                    <div class="gallery-caption">Florida-Compliant Installations</div>
-                </div>
-            </div>
+<!-- CTA -->
+<section class="cta-sec sec">
+  <div class="cta-inner reveal">
+    <div class="sec-label" style="justify-content:center"><span>Ready?</span></div>
+    <h2 class="sec-h">Experience the<br>N&K Difference.</h2>
+    <p class="sec-p">Protect your home with a team that truly cares. Get a free, no-obligation estimate from South Florida's most trusted seamless gutter specialists.</p>
+    <div class="cta-btns">
+      <button class="btn-p" onclick="scrollToQuote()">Get FREE Estimate ↗</button>
+      <a href="services.html" class="btn-g">Explore Services →</a>
+    </div>
+  </div>
+</section>
 
-            <div class="gallery-item">
-                <img src="trab5.jpg" alt="Copper Gutter System">
-                <div class="gallery-overlay">
-                    <div class="gallery-caption">Premium Copper Gutter Systems</div>
-                </div>
-            </div>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <img src="icono.jpg" alt="N&K Gutter">
+    <ul class="f-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <span class="f-copy">© 2026 N&amp;K Seamless Gutter LLC · All Rights Reserved</span>
+  </div>
+</footer>
 
-            <div class="gallery-item">
-                <img src="trab7.jpg" alt="Modern Home Installation">
-                <div class="gallery-overlay">
-                    <div class="gallery-caption">Clean & Modern Aesthetics</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+// Header scroll
+const hdr=document.getElementById('hdr');
+window.addEventListener('scroll',()=>hdr.classList.toggle('scrolled',window.scrollY>80),{passive:true});
 
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2>Ready to Experience the N&K Gutter Difference?</h2>
-            <p>Protect your home with a team that truly cares. At N&K Gutter, we're committed to delivering top-quality gutter solutions and the outstanding service you deserve—every step of the way. Built to last. Backed by care!</p>
-            <div class="btn-group">
-                <a href="index.html#quoteFormSection" class="btn btn-primary">Get Your FREE Estimate Today</a>
-                <a href="contact.html" class="btn btn-secondary">Contact Us</a>
-            </div>
-        </div>
-    </section>
+// Scroll reveal
+const revEls=document.querySelectorAll('.reveal,.reveal-l,.reveal-r');
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}}),{threshold:.12});
+revEls.forEach(el=>obs.observe(el));
 
-    <script>
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            header.classList.toggle('scrolled', window.scrollY > 100);
-        });
+// Custom cursor
+const cur=document.getElementById('cursor'),cring=document.getElementById('cring');
+if(cur&&cring){
+  let mx=0,my=0,rx=0,ry=0;
+  window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cring.style.left=rx+'px';cring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,.gi').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';cring.style.width='56px';cring.style.height='56px';});
+    el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';cring.style.width='36px';cring.style.height='36px';});
+  });
+}
 
-        // Parallax effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.backgroundPositionY = `${scrolled * 0.5}px`;
-            }
-        });
-
-        // 3D tilt on value cards
-        document.querySelectorAll('.value-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 15;
-                const rotateY = (centerX - x) / 15;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-20px) scale(1.03)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
-    </script>
+function scrollToQuote(){window.location.href='index.html#quoteFormSection';}
+function scrollToSection(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}
+</script>
 </body>
 </html>

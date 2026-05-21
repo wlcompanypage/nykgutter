@@ -1,594 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - N&K Gutter</title>
-    <link rel="icon" href="icono.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #FF7A00;
-            --secondary: #0A2E5C;
-            --accent: #FFC107;
-            --dark: #0f172a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact N&K Gutter — Get Your Free Estimate</title>
+<link rel="icon" href="icono.jpg" type="image/jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --o: #FF7A00;
+  --gold: #FFC107;
+  --dark: #080f1e;
+  --dark2: #0d1829;
+  --dark3: #111f36;
+  --white: #ffffff;
+  --muted: rgba(255,255,255,0.55);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;cursor:none}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+/* CURSOR */
+.cursor{position:fixed;width:12px;height:12px;background:var(--o);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+.cring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(255,122,0,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--dark);
-            color: white;
-            overflow-x: hidden;
-        }
+/* GRAIN */
+.grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px;animation:grainA .35s steps(1) infinite}
+@keyframes grainA{0%{background-position:0 0}20%{background-position:-50px 30px}40%{background-position:70px -20px}60%{background-position:-30px 70px}80%{background-position:50px -50px}}
 
-        .header {
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(20px);
-            background: rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.5s;
-        }
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;width:100%;z-index:800;transition:all .5s}
+.hdr-inner{max-width:1500px;margin:0 auto;padding:1.3rem 3rem;display:flex;align-items:center;backdrop-filter:blur(18px);background:rgba(8,15,30,.28);border-bottom:1px solid rgba(255,255,255,.05);transition:all .4s}
+.hdr.scrolled .hdr-inner{background:rgba(8,15,30,.97);border-color:rgba(255,122,0,.08);padding:.9rem 3rem}
+.logo{flex-shrink:0;margin-right:auto}
+.logo img{height:50px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,122,0,.4));transition:all .4s}
+.logo img:hover{filter:drop-shadow(0 0 22px var(--o));transform:scale(1.05)}
+.nav{display:flex;gap:.2rem;list-style:none;margin:0 2rem}
+.nav a{display:block;color:rgba(255,255,255,.78);text-decoration:none;font-size:.9rem;font-weight:600;letter-spacing:.05em;padding:.5rem 1.2rem;border-radius:30px;transition:all .3s;position:relative}
+.nav a::after{content:'';position:absolute;bottom:6px;left:50%;width:0;height:2px;background:var(--o);transform:translateX(-50%);transition:width .3s;border-radius:2px}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav a:hover::after{width:55%}
+.hdr-cta{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--o),#ff9d00);color:#fff;text-decoration:none;font-size:.88rem;font-weight:700;letter-spacing:.04em;padding:.7rem 1.7rem;border-radius:50px;box-shadow:0 6px 24px rgba(255,122,0,.35);transition:all .35s;white-space:nowrap;position:relative;overflow:hidden}
+.hdr-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-100%);transition:.5s}
+.hdr-cta:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 10px 36px rgba(255,122,0,.55)}
+.hdr-cta:hover::before{transform:translateX(100%)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:.3s}
 
-        .header.scrolled {
-            background: rgba(15,23,42,0.95);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
+/* HERO */
+.hero{position:relative;min-height:80svh;display:flex;align-items:center;overflow:hidden;padding-top:8rem}
+.hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(110deg,rgba(8,15,30,.97),rgba(8,15,30,.88))}
+.hero-ov{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 55% 75% at 5% 55%,rgba(255,122,0,.08),transparent 55%),radial-gradient(ellipse 40% 55% at 95% 15%,rgba(10,46,92,.22),transparent 65%)}
+.hero-grain{position:absolute;inset:0;z-index:2;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:220px;pointer-events:none}
+.hero-line{position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--o) 30%,var(--gold) 70%,transparent);z-index:5;opacity:.7}
+.hero-body{position:relative;z-index:10;max-width:1200px;width:100%;margin:0 auto;padding:0 3rem 5rem;display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero-content{animation:fUp .9s cubic-bezier(.22,1,.36,1) both;max-width:820px}
+@keyframes fUp{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:translateY(0)}}
+.pill{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,122,0,.1);border:1px solid rgba(255,122,0,.28);border-radius:50px;padding:.38rem 1rem;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--o);margin-bottom:1.5rem}
+.pdot{width:6px;height:6px;border-radius:50%;background:var(--o);animation:blink 1.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,8vw,7rem);line-height:.95;letter-spacing:.01em;margin-bottom:1.5rem}
+.ht-w{color:var(--white)}
+.ht-g{background:linear-gradient(110deg,var(--o) 0%,var(--gold) 50%,#fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200%;animation:gS 6s ease infinite alternate}
+@keyframes gS{from{background-position:0%}to{background-position:100%}}
+.hero-sub{font-size:clamp(.95rem,1.5vw,1.1rem);color:rgba(255,255,255,.68);line-height:1.9;margin-bottom:2.5rem}
+.btn-p{display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,var(--o),#ff9d00);color:#fff;font-size:.97rem;font-weight:700;letter-spacing:.03em;padding:1rem 2.4rem;border-radius:50px;border:none;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 10px 32px rgba(255,122,0,.38);transition:transform .35s,box-shadow .35s;text-decoration:none}
+.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:translateX(-120%);transition:.5s}
+.btn-p:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 16px 46px rgba(255,122,0,.58)}
+.btn-p:hover::after{transform:translateX(120%)}
+.btn-g{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.06);color:#fff;font-size:.97rem;font-weight:600;padding:1rem 2.2rem;border-radius:50px;border:1px solid rgba(255,255,255,.16);cursor:pointer;backdrop-filter:blur(10px);transition:all .35s;text-decoration:none}
+.btn-g:hover{background:rgba(255,122,0,.1);border-color:var(--o);transform:translateY(-4px)}
 
-        .nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* SECTION UTILS */
+.sec{position:relative;overflow:hidden}
+.sec-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--o);margin-bottom:1.1rem}
+.sec-label::before{content:'';display:block;width:28px;height:1.5px;background:var(--o);border-radius:2px}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,5vw,4.2rem);line-height:1;background:linear-gradient(135deg,var(--white) 30%,rgba(255,255,255,.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem}
+.sec-p{font-size:1.05rem;color:var(--muted);line-height:1.9;max-width:560px}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-40px);transition:opacity .8s ease,transform .8s ease}
+.reveal-l.in{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal-r.in{opacity:1;transform:translateX(0)}
 
-        .logo { 
-            height: 60px; 
-            transition: all 0.5s;
-            filter: drop-shadow(0 0 20px rgba(255,122,0,0.5));
-        }
-        
-        .logo:hover { 
-            transform: rotateY(360deg) scale(1.1);
-            filter: drop-shadow(0 0 30px var(--primary));
-        }
+/* CONTACT CARDS */
+.contact-sec{padding:8rem 3rem;background:var(--dark2)}
+.contact-inner{max-width:1400px;margin:0 auto}
+.contact-hd{text-align:center;margin-bottom:4rem}
+.contact-hd .sec-label{justify-content:center}
+.contact-hd .sec-label::before{display:none}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
+.cc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:2.8rem 2.4rem;transition:all .4s;cursor:default;position:relative}
+.cc:hover{border-color:rgba(255,122,0,.25);background:rgba(255,122,0,.04);transform:translateY(-6px)}
+.cc-ico{width:56px;height:56px;background:rgba(255,122,0,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.6rem}
+.cc h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.02em;margin-bottom:.6rem;color:var(--white)}
+.cc p{font-size:.95rem;color:var(--muted);line-height:1.6;margin-bottom:1.6rem}
+.cc-btn{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,var(--o),#ff9d00);color:#fff;text-decoration:none;font-size:.9rem;font-weight:700;padding:.8rem 1.8rem;border-radius:50px;box-shadow:0 6px 24px rgba(255,122,0,.35);transition:all .35s;position:relative;overflow:hidden}
+.cc-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-100%);transition:.5s}
+.cc-btn:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 10px 36px rgba(255,122,0,.55)}
+.cc-btn:hover::after{transform:translateX(100%)}
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
+/* INFO SECTION */
+.info-sec{padding:8rem 3rem;background:var(--dark3)}
+.info-inner{max-width:1200px;margin:0 auto}
+.info-hd{text-align:center;margin-bottom:4rem}
+.info-hd .sec-label{justify-content:center}
+.info-hd .sec-label::before{display:none}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-bottom:3rem}
+.info-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:2.4rem;transition:all .4s;text-align:center}
+.info-item:hover{border-color:rgba(255,122,0,.25);background:rgba(255,122,0,.04);transform:translateY(-4px)}
+.info-item h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--o);margin-bottom:1rem;letter-spacing:.02em}
+.info-item p{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:.6rem}
+.info-item p strong{color:var(--white);display:block;margin-top:.8rem;margin-bottom:.3rem}
+.service-area{background:rgba(255,122,0,.08);border:1px solid rgba(255,122,0,.18);border-radius:18px;padding:2.4rem;text-align:center}
+.service-area h4{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--white);margin-bottom:.8rem;letter-spacing:.02em}
+.service-area p{font-size:.95rem;color:var(--muted);line-height:1.7;margin-bottom:.6rem}
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            position: relative;
-            padding: 0.5rem 1rem;
-            transition: all 0.3s;
-        }
+/* CTA */
+.cta-sec{padding:7rem 3rem;background:linear-gradient(135deg,var(--dark2),var(--dark3));text-align:center;position:relative;overflow:hidden}
+.cta-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(255,122,0,.1),transparent 70%);pointer-events:none}
+.cta-inner{max-width:800px;margin:0 auto;position:relative;z-index:2}
+.cta-inner .sec-h{font-size:clamp(2.8rem,6vw,5rem);text-align:center;margin-bottom:1.2rem}
+.cta-inner .sec-p{text-align:center;margin:0 auto 3rem;font-size:1.1rem;max-width:560px}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
 
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: translateX(-50%);
-            transition: width 0.4s;
-        }
+/* FOOTER */
+.footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:3rem}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.footer-inner img{height:40px;object-fit:contain;opacity:.7;filter:drop-shadow(0 0 8px rgba(255,122,0,.3))}
+.f-links{display:flex;gap:2rem;list-style:none}
+.f-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .3s}
+.f-links a:hover{color:var(--o)}
+.f-copy{font-size:.8rem;color:rgba(255,255,255,.25)}
 
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links a:hover::before { width: 100%; }
-
-        .cta-btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            box-shadow: 0 10px 30px rgba(255,122,0,0.4);
-            transition: all 0.4s;
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255,122,0,0.6);
-        }
-
-        .hero {
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            position: relative;
-            padding: 8rem 2rem 4rem;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(255,122,0,0.2), transparent 70%);
-            top: -250px;
-            right: -250px;
-            animation: pulse 8s infinite;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255,193,7,0.15), transparent 70%);
-            bottom: -150px;
-            left: -150px;
-            animation: pulse 6s infinite reverse;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
-            50% { transform: scale(1.3) rotate(45deg); opacity: 0.8; }
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, white 0%, var(--primary) 50%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: rgba(255,255,255,0.9);
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.8;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .contact-section {
-            padding: 6rem 2rem;
-            background: linear-gradient(180deg, #1e293b, #0f172a);
-        }
-
-        .contact-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            perspective: 1000px;
-        }
-
-        .contact-card {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 3rem 2.5rem;
-            text-align: center;
-            transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                transparent 0deg,
-                var(--primary) 90deg,
-                transparent 180deg
-            );
-            opacity: 0;
-            transition: all 0.6s;
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            100% { transform: rotate(360deg); }
-        }
-
-        .contact-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-20px) rotateX(5deg) scale(1.03);
-            border-color: var(--primary);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(255,122,0,0.3);
-        }
-
-        .contact-icon {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            box-shadow: 0 15px 40px rgba(255,122,0,0.4);
-            transition: all 0.5s;
-            position: relative;
-            z-index: 2;
-        }
-
-        .contact-card:hover .contact-icon {
-            transform: rotateY(360deg) scale(1.15);
-            box-shadow: 0 20px 60px rgba(255,122,0,0.6);
-        }
-
-        .contact-card h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .contact-card p {
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .contact-btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            transition: all 0.4s;
-            box-shadow: 0 10px 30px rgba(255,122,0,0.3);
-            position: relative;
-            z-index: 2;
-            overflow: hidden;
-        }
-
-        .contact-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s;
-        }
-
-        .contact-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255,122,0,0.5);
-        }
-
-        .contact-btn:hover::before {
-            left: 100%;
-        }
-
-        .contact-btn.secondary {
-            background: rgba(255,255,255,0.1);
-            border: 2px solid rgba(255,255,255,0.3);
-            box-shadow: none;
-        }
-
-        .contact-btn.secondary:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: var(--primary);
-        }
-
-        .info-section {
-            padding: 6rem 2rem;
-            background: #0f172a;
-            position: relative;
-        }
-
-        .info-section::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(255,122,0,0.08), transparent 60%);
-        }
-
-        .info-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 4rem 3rem;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .info-container h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, white, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .info-item {
-            padding: 2rem;
-            background: rgba(255,255,255,0.02);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.4s;
-        }
-
-        .info-item:hover {
-            background: rgba(255,122,0,0.1);
-            border-color: var(--primary);
-            transform: translateY(-10px);
-        }
-
-        .info-item h4 {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .info-item p {
-            color: rgba(255,255,255,0.8);
-            line-height: 1.8;
-            font-size: 1.05rem;
-        }
-
-        .service-area {
-            margin-top: 3rem;
-            padding: 2rem;
-            background: rgba(255,122,0,0.05);
-            border-radius: 20px;
-            border: 1px solid rgba(255,122,0,0.2);
-        }
-
-        .service-area h4 {
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .service-area p {
-            color: rgba(255,255,255,0.8);
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        .map-section {
-            padding: 6rem 2rem;
-            background: linear-gradient(180deg, #1e293b, #0f172a);
-        }
-
-        .map-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .map-container h2 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, white, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 3rem;
-        }
-
-        .map-placeholder {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 4rem 3rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .map-placeholder p {
-            color: rgba(255,255,255,0.7);
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .location-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-top: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .contact-grid, .info-grid { grid-template-columns: 1fr; }
-            .hero { padding: 6rem 1.5rem 3rem; }
-            .info-container { padding: 3rem 2rem; }
-        }
-    </style>
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .contact-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .hdr-inner{padding:1rem 1.5rem}
+  .nav,.hdr-cta{display:none}
+  .hamburger{display:flex}
+  .hero-body{padding:0 1.5rem 4rem}
+  .hero-title{font-size:clamp(3rem,13vw,5rem)}
+  .contact-sec,.info-sec,.cta-sec{padding:5rem 1.5rem}
+  .contact-grid,.info-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+  .f-links{justify-content:center;flex-wrap:wrap}
+  body{cursor:auto}
+  .cursor,.cring{display:none}
+}
+</style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <a href="index.html"><img src="icono.jpg" alt="N&K Gutter" class="logo"></a>
-            <ul class="nav-links">
-                <li><a href="services.html">Services</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <a href="tel:+15612686290" class="cta-btn">Call: (561) 268-6290</a>
-        </nav>
-    </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Ready to Protect Your Investment?</h1>
-            <p>Don't wait for gutter problems to cause costly damage. Contact us today for a free, no-obligation estimate or to discuss your gutter needs.</p>
-        </div>
-    </section>
+<div class="cursor" id="cursor"></div>
+<div class="cring" id="cring"></div>
+<div class="grain"></div>
 
-    <section class="contact-section">
-        <div class="contact-grid">
-            <div class="contact-card">
-                <div class="contact-icon">📞</div>
-                <h3>Call Us Directly</h3>
-                <p>Speak to one of our friendly experts now</p>
-                <a href="tel:+15612686290" class="contact-btn">Call: (561) 268-6290</a>
-            </div>
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <div class="hdr-inner">
+    <div class="logo"><a href="index.html"><img src="icono.jpg" alt="N&K Gutter"></a></div>
+    <ul class="nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="#" class="hdr-cta">📞 (561) 268-6290</a>
+    <div class="hamburger" id="ham"><span></span><span></span><span></span></div>
+  </div>
+</header>
 
-            <div class="contact-card">
-                <div class="contact-icon">✉️</div>
-                <h3>Send Us an Email</h3>
-                <p>We'll get back to you as soon as possible</p>
-                <a href="mailto:nykseamlessgutter@gmail.com" class="contact-btn secondary">nykseamlessgutter@gmail.com</a>
-            </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-line"></div>
 
-            <div class="contact-card">
-                <div class="contact-icon">📝</div>
-                <h3>Get a Free Quote</h3>
-                <p>Fill out our quick form on the homepage</p>
-                <a href="index.html#quoteFormSection" class="contact-btn">Request Free Estimate</a>
-            </div>
-        </div>
-    </section>
+  <div class="hero-body">
+    <div class="hero-content">
+      <div class="pill"><span class="pdot"></span>Get In Touch Today</div>
+      <h1 class="hero-title">
+        <span class="ht-w">Ready to Protect</span><br>
+        <span class="ht-g">Your Investment?</span><br>
+        <span class="ht-w">Let's Talk</span>
+      </h1>
+      <p class="hero-sub">Don't wait for gutter problems to cause costly damage. Contact us today for a free, no-obligation estimate or to discuss your gutter needs.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem">
+        <button class="btn-p" onclick="scrollToSection('contact')">Contact Options ↗</button>
+        <a href="index.html#quoteFormSection" class="btn-g">Get FREE Estimate →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section class="info-section">
-        <div class="info-container">
-            <h3>Business Information</h3>
-            
-            <div class="info-grid">
-                <div class="info-item">
-                    <h4>📅 Business Hours</h4>
-                    <p><strong>Monday - Friday</strong><br>7:00 AM - 7:00 PM</p>
-                    <p><strong>Saturday</strong><br>7:00 AM - 7:00 PM</p>
-                    <p><strong>Sunday</strong><br>Closed</p>
-                </div>
+<!-- CONTACT OPTIONS -->
+<section class="contact-sec sec" id="contact">
+  <div class="contact-inner">
+    <div class="contact-hd reveal">
+      <div class="sec-label">Get In Touch</div>
+      <h2 class="sec-h">Multiple Ways to<br>Reach Us</h2>
+      <p class="sec-p" style="text-align:center;margin:0 auto">Choose the contact method that works best for you — we're always ready to help.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="cc reveal" style="transition-delay:0s">
+        <div class="cc-ico">📞</div>
+        <h3>Call Us</h3>
+        <p>Speak directly with our team for immediate assistance</p>
+        <a href="#" class="cc-btn">Call Now</a>
+      </div>
+      <div class="cc reveal" style="transition-delay:.08s">
+        <div class="cc-ico">✉️</div>
+        <h3>Email Us</h3>
+        <p>Send us your details and we'll respond promptly</p>
+        <a href="index.html#quoteFormSection" class="cc-btn">Send Email</a>
+      </div>
+      <div class="cc reveal" style="transition-delay:.12s">
+        <div class="cc-ico">📝</div>
+        <h3>Request Quote</h3>
+        <p>Fill out our quick form for a free no-obligation estimate</p>
+        <a href="index.html#quoteFormSection" class="cc-btn">Get Estimate</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <div class="info-item">
-                    <h4>📍 Location</h4>
-                    <p>5340 Elmhurst Rd G<br>West Palm Beach, FL 33417</p>
-                </div>
+<!-- BUSINESS INFO -->
+<section class="info-sec sec">
+  <div class="info-inner">
+    <div class="info-hd reveal">
+      <div class="sec-label">Information</div>
+      <h2 class="sec-h">Business Details &<br>Service Area</h2>
+    </div>
+    <div class="info-grid">
+      <div class="info-item reveal" style="transition-delay:0s">
+        <h4>🕐 Hours</h4>
+        <p><strong>Monday - Saturday</strong>
+        7:00 AM - 7:00 PM</p>
+        <p><strong>Sunday</strong>
+        Closed</p>
+      </div>
+      <div class="info-item reveal" style="transition-delay:.08s">
+        <h4>📍 Location</h4>
+        <p>5340 Elmhurst Rd G<br>
+        West Palm Beach, FL 33417</p>
+      </div>
+      <div class="info-item reveal" style="transition-delay:.12s">
+        <h4>✓ Licensed & Insured</h4>
+        <p>Professional gutter installation and repair services with full credentials</p>
+      </div>
+    </div>
+    <div class="service-area reveal">
+      <h4>🗺️ Service Area</h4>
+      <p>Proudly serving Palm Beach County, Broward County, Miami-Dade County and nearby communities throughout South Florida. Contact us to confirm service availability in your area.</p>
+    </div>
+  </div>
+</section>
 
-                <div class="info-item">
-                    <h4>💼 Services</h4>
-                    <p>Professional Gutter<br>Installation & Repair</p>
-                    <p>Licensed & Insured</p>
-                </div>
-            </div>
+<!-- CTA -->
+<section class="cta-sec sec">
+  <div class="cta-inner reveal">
+    <div class="sec-label" style="justify-content:center"><span>Let's Go</span></div>
+    <h2 class="sec-h">Get Your Free<br>Estimate Now</h2>
+    <p class="sec-p">No hidden fees. No obligations. Just honest, transparent pricing from South Florida's most trusted seamless gutter specialists.</p>
+    <div class="cta-btns">
+      <button class="btn-p" onclick="scrollToQuote()">Request FREE Estimate ↗</button>
+      <a href="about.html" class="btn-g">Learn About Us →</a>
+    </div>
+  </div>
+</section>
 
-            <div class="service-area">
-                <h4>🗺️ Service Area</h4>
-                <p>Proudly Serving Palm Beach County, Broward County, Miami-Dade County and Nearby Communities</p>
-                <p style="margin-top: 1rem; font-size: 0.95rem;">Contact us to confirm service availability in your area—we're happy to help!</p>
-            </div>
-        </div>
-    </section>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <img src="icono.jpg" alt="N&K Gutter">
+    <ul class="f-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <span class="f-copy">© 2026 N&amp;K Seamless Gutter LLC · All Rights Reserved</span>
+  </div>
+</footer>
+<script>
+// Header scroll
+const hdr=document.getElementById('hdr');
+window.addEventListener('scroll',()=>hdr.classList.toggle('scrolled',window.scrollY>80),{passive:true});
 
-    <section class="map-section">
-        <div class="map-container">
-            <h2>Find Us Here</h2>
-            <div class="map-placeholder">
-                <p>📍 We're located in West Palm Beach, Florida</p>
-                <p>Serving communities throughout South Florida with premium gutter solutions</p>
-                <span class="location-badge">5340 Elmhurst Rd G, West Palm Beach, FL 33417</span>
-            </div>
-        </div>
-    </section>
+// Scroll reveal
+const revEls=document.querySelectorAll('.reveal,.reveal-l,.reveal-r');
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}}),{threshold:.12});
+revEls.forEach(el=>obs.observe(el));
 
-    <script>
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            header.classList.toggle('scrolled', window.scrollY > 100);
-        });
+// Custom cursor
+const cur=document.getElementById('cursor'),cring=document.getElementById('cring');
+if(cur&&cring){
+  let mx=0,my=0,rx=0,ry=0;
+  window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cring.style.left=rx+'px';cring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,.cc,.info-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';cring.style.width='56px';cring.style.height='56px';});
+    el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';cring.style.width='36px';cring.style.height='36px';});
+  });
+}
 
-        // 3D tilt effect on contact cards
-        document.querySelectorAll('.contact-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 15;
-                const rotateY = (centerX - x) / 15;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-20px) scale(1.03)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
-
-        // Floating animation for info items
-        const infoItems = document.querySelectorAll('.info-item');
-        infoItems.forEach((item, index) => {
-            item.style.animationDelay = `${index * 0.2}s`;
-        });
-    </script>
+function scrollToQuote(){window.location.href='index.html#quoteFormSection';}
+function scrollToSection(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}
+</script>
 </body>
 </html>
